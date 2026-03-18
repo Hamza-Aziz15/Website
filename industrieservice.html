@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>[FIRMENNAME] Industrieservice — Professionelle Industriereinigung</title>
+  <meta name="description" content="[FIRMENNAME] Industrieservice: Professionelle Reinigung und Wartung für Produktionsanlagen, Maschinen und Industriegebäude." />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Industrieservice accent — amber/orange tone for distinct identity */
+    :root {
+      --accent: #c2410c;
+      --accent-light: #f97316;
+      --accent-glow: rgba(249,115,22,0.25);
+      --accent-subtle: rgba(249,115,22,0.08);
+      --gradient-accent: linear-gradient(135deg, #b45309, #c2410c);
+    }
+
+    .service-hero {
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 70px;
+      background: linear-gradient(160deg, #0a0806 0%, #150f08 55%, #0a0806 100%);
+    }
+
+    .hero-deco-circle {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero-deco-circle.c1 {
+      width: 650px; height: 650px;
+      right: -120px; top: -120px;
+      background: radial-gradient(circle, rgba(249,115,22,0.09) 0%, transparent 70%);
+    }
+    .hero-deco-circle.c2 {
+      width: 350px; height: 350px;
+      left: 5%; bottom: -80px;
+      background: radial-gradient(circle, rgba(249,115,22,0.05) 0%, transparent 70%);
+    }
+
+    .hero-grid-lines {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+    }
+
+    .service-hero-inner {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      padding: 80px 0;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      background: var(--accent-subtle);
+      border: 1px solid rgba(249,115,22,0.2);
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 22px;
+    }
+    .hero-badge::before { content: '🏭'; font-size: 0.9rem; }
+
+    .service-hero h1 { margin-bottom: 22px; color: var(--white); }
+    .service-hero h1 em { font-style: normal; color: var(--accent-light); }
+    .service-hero p { font-size: 1.05rem; color: var(--gray-500); margin-bottom: 36px; line-height: 1.8; }
+
+    .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    .hero-visual-card {
+      background: linear-gradient(145deg, #1a1208, #110d06);
+      border: 1px solid rgba(249,115,22,0.18);
+      border-radius: var(--radius-xl);
+      padding: 36px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-visual-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--gradient-accent);
+    }
+
+    .hero-visual-emoji {
+      font-size: 5rem;
+      text-align: center;
+      display: block;
+      margin-bottom: 24px;
+      filter: drop-shadow(0 0 30px rgba(249,115,22,0.35));
+    }
+
+    .hero-visual-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .mini-stat {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      text-align: center;
+    }
+    .mini-stat-num { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; color: var(--accent-light); }
+    .mini-stat-label { font-size: 0.78rem; color: var(--gray-500); margin-top: 4px; }
+
+    /* nav cta override */
+    .nav-cta { background: var(--accent) !important; }
+    .nav-cta:hover { background: var(--accent-light) !important; }
+
+    /* section-label override */
+    .section-label { color: var(--accent-light); background: var(--accent-subtle); border-color: rgba(249,115,22,0.2); }
+    .section-label::before { background: var(--accent-light); }
+
+    /* checklist override */
+    .checklist li::before { background: var(--accent-subtle); border-color: rgba(249,115,22,0.3);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6l3 3 5-5' stroke='%23f97316' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+
+    /* btn override */
+    .btn-primary { background: var(--gradient-accent); box-shadow: 0 4px 20px var(--accent-glow); }
+    .btn-primary:hover { box-shadow: 0 8px 30px rgba(249,115,22,0.4); }
+
+    /* services grid */
+    .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 56px; }
+    .svc-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px; transition: var(--transition); }
+    .svc-card:hover { border-color: rgba(249,115,22,0.3); transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.35), 0 0 30px rgba(249,115,22,0.07); }
+    .svc-icon { width: 52px; height: 52px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; background: var(--accent-subtle); border: 1px solid rgba(249,115,22,0.2); margin-bottom: 20px; }
+    .svc-card h3 { font-size: 1.1rem; margin-bottom: 8px; }
+
+    /* process */
+    .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 56px; position: relative; }
+    .process-steps::before { content:''; position:absolute; top:28px; left:12%; right:12%; height:2px; background:linear-gradient(90deg, var(--accent), transparent); z-index:0; }
+    .process-step { text-align:center; padding:0 16px; position:relative; z-index:1; }
+    .step-num { width:56px; height:56px; border-radius:50%; background:var(--gradient-accent); display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-size:1.1rem; font-weight:700; color:white; margin:0 auto 20px; box-shadow:0 0 24px var(--accent-glow); }
+    .step-title { font-family:var(--font-display); font-size:1rem; font-weight:600; color:var(--white); margin-bottom:8px; }
+    .step-desc { font-size:0.85rem; color:var(--gray-500); }
+
+    /* pricing */
+    .pricing-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:24px; margin-top:56px; align-items:center; }
+    .price-card { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-xl); padding:36px 32px; text-align:center; transition:var(--transition); position:relative; }
+    .price-card:hover { transform:translateY(-4px); }
+    .price-card.popular { border-color:rgba(249,115,22,0.4); background:linear-gradient(160deg, #1f1007, #140c04); transform:scale(1.04); }
+    .price-card.popular:hover { transform:scale(1.04) translateY(-4px); }
+    .popular-badge { position:absolute; top:-13px; left:50%; transform:translateX(-50%); background:var(--gradient-accent); color:white; font-size:0.72rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:4px 16px; border-radius:100px; white-space:nowrap; }
+    .price-tier-name { font-size:0.8rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--gray-500); margin-bottom:16px; }
+    .price-amount { font-family:var(--font-display); font-size:2.8rem; font-weight:800; color:var(--white); margin-bottom:4px; line-height:1; }
+    .price-from { font-size:0.82rem; color:var(--gray-500); margin-bottom:28px; }
+    .price-features { list-style:none; text-align:left; margin-bottom:28px; }
+    .price-features li { font-size:0.88rem; color:var(--gray-300); padding:8px 0; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px; }
+    .price-features li::before { content:'✓'; color:var(--accent-light); font-weight:700; font-size:0.8rem; }
+
+    .cta-section { background:linear-gradient(135deg, #120a04, #1c100a); border-top:1px solid rgba(249,115,22,0.15); border-bottom:1px solid rgba(249,115,22,0.15); }
+    .cta-inner { text-align:center; padding:80px 0; }
+    .cta-inner h2 { margin-bottom:16px; }
+    .cta-inner p { max-width:500px; margin:0 auto 36px; }
+    .cta-actions { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+
+    @media (max-width:900px) {
+      .service-hero-inner { grid-template-columns:1fr; gap:40px; }
+      .hero-visual { display:none; }
+      .services-grid { grid-template-columns:1fr; }
+      .process-steps { grid-template-columns:repeat(2,1fr); gap:32px; }
+      .process-steps::before { display:none; }
+      .pricing-grid { grid-template-columns:1fr; }
+      .price-card.popular { transform:scale(1); }
+      .price-card.popular:hover { transform:translateY(-4px); }
+    }
+
+    @media (max-width:768px) {
+      .service-hero { min-height:auto; padding-bottom:60px; overflow:hidden; }
+      .service-hero-inner { padding:48px 0 0; }
+      .hero-ctas { flex-direction:column; }
+      .hero-ctas .btn { width:100%; justify-content:center; }
+      .process-steps { grid-template-columns:1fr; }
+      .hero-deco-circle.c1 { width:280px; height:280px; right:-60px; top:-60px; }
+      .hero-deco-circle.c2 { width:160px; height:160px; }
+    }
+
+    @media (max-width:480px) {
+      .svc-card { padding:24px; }
+      .price-card { padding:28px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a class="nav-logo" href="index.html" onclick="navigateBack(event)">INTEX<span>O</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" onclick="navigateBack(event)">← Zurück zur Startseite</a></li>
+        <li><a href="#leistungen" onclick="closeMenu()">Leistungen</a></li>
+        <li><a href="#ablauf" onclick="closeMenu()">Ablauf</a></li>
+        <li><a href="#preise" onclick="closeMenu()">Preise</a></li>
+        <li><a href="#anfrage" class="nav-cta" onclick="closeMenu()">Anfrage stellen</a></li>
+      </ul>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menü öffnen" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="service-hero">
+    <div class="hero-deco-circle c1"></div>
+    <div class="hero-deco-circle c2"></div>
+    <div class="hero-grid-lines"></div>
+    <div class="container">
+      <div class="service-hero-inner">
+        <div class="reveal">
+          <div class="hero-badge">Industrieservice</div>
+          <h1>Sauberkeit in der <em>Industrie</em> — präzise und zuverlässig</h1>
+          <p>[FIRMENNAME] Industrieservice sorgt für hygienisch einwandfreie und betriebssichere Produktionsumgebungen — schnell, gründlich und ISO-konform.</p>
+          <div class="hero-ctas">
+            <a href="#anfrage" class="btn btn-primary">
+              Anfrage stellen
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </a>
+            <a href="#anfrage" class="btn btn-secondary">Preise anfragen</a>
+          </div>
+        </div>
+        <div class="hero-visual reveal" style="transition-delay:0.2s">
+          <div class="hero-visual-card">
+            <span class="hero-visual-emoji">🏭</span>
+            <div class="hero-visual-stats">
+              <div class="mini-stat"><div class="mini-stat-num">300+</div><div class="mini-stat-label">Anlagen gereinigt</div></div>
+              <div class="mini-stat"><div class="mini-stat-num">ISO</div><div class="mini-stat-label">9001 zertifiziert</div></div>
+              <div class="mini-stat"><div class="mini-stat-num">24/7</div><div class="mini-stat-label">Notfalleinsatz</div></div>
+              <div class="mini-stat"><div class="mini-stat-num">0</div><div class="mini-stat-label">Produktionsausfälle</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Leistungen -->
+  <section class="section" id="leistungen" style="background:var(--bg-secondary);border-top:1px solid var(--border);">
+    <div class="container">
+      <div class="text-center reveal">
+        <div class="section-label">Unsere Leistungen</div>
+        <h2 class="section-title">Industriereinigungs­leistungen</h2>
+        <p class="section-subtitle">Maßgeschneiderte Reinigungslösungen für jede Branche — von der Lebensmittelindustrie bis zur Schwermaschinenfertigung.</p>
+      </div>
+      <div class="services-grid">
+        <div class="svc-card reveal">
+          <div class="svc-icon">⚙️</div>
+          <h3>Maschinenreinigung</h3>
+          <p style="font-size:0.9rem;color:var(--gray-500);margin-bottom:16px;">Professionelle Reinigung von Produktionsmaschinen, Förderbändern und technischen Anlagen.</p>
+          <ul class="checklist">
+            <li>Hochdruckreinigung & Dampfstrahl</li>
+            <li>Fettlösung & Entlackung</li>
+            <li>Schutz elektrischer Komponenten</li>
+            <li>Rüstzeit-optimierter Ablauf</li>
+            <li>Dokumentierte Reinigungsprotokolle</li>
+          </ul>
+        </div>
+        <div class="svc-card reveal" style="transition-delay:0.1s">
+          <div class="svc-icon">🏗️</div>
+          <h3>Hallenreinigung</h3>
+          <p style="font-size:0.9rem;color:var(--gray-500);margin-bottom:16px;">Umfassende Reinigung von Produktions-, Lager- und Betriebshallen aller Größenordnungen.</p>
+          <ul class="checklist">
+            <li>Boden­schleif- & Polierservice</li>
+            <li>Dachkonstruktion & Deckenreinigung</li>
+            <li>Fenster- & Oberlichtreinigung</li>
+            <li>Regalsysteme & Lagerregale</li>
+            <li>Abluft- & Lüftungsreinigung</li>
+          </ul>
+        </div>
+        <div class="svc-card reveal" style="transition-delay:0.2s">
+          <div class="svc-icon">🧪</div>
+          <h3>Chemische Anlagenreinigung</h3>
+          <p style="font-size:0.9rem;color:var(--gray-500);margin-bottom:16px;">Spezialisierte Reinigung von Tanks, Rohrleitungen und chemischen Prozessanlagen.</p>
+          <ul class="checklist">
+            <li>CIP-Reinigung (Clean-in-Place)</li>
+            <li>Tankinnen­reinigung mit Zertifikat</li>
+            <li>Rohrleitungs-Spülservice</li>
+            <li>Umgang mit Gefahrstoffen (GHS)</li>
+            <li>Behörden­konforme Entsorgung</li>
+          </ul>
+        </div>
+        <div class="svc-card reveal" style="transition-delay:0.3s">
+          <div class="svc-icon">🔩</div>
+          <h3>Wartungsbegleitender Service</h3>
+          <p style="font-size:0.9rem;color:var(--gray-500);margin-bottom:16px;">Reinigung als integrierter Bestandteil Ihrer Wartungs- und Instandhaltungsprozesse.</p>
+          <ul class="checklist">
+            <li>Reinigung bei Stillstandszeiten</li>
+            <li>Korrosionsschutzbehandlung</li>
+            <li>Schmier- & Pflegestoffauftrag</li>
+            <li>Fotodokumentation vor/nach</li>
+            <li>Übergabeprotokoll & Abnahme</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ablauf -->
+  <section class="section" id="ablauf" style="background:var(--bg-primary);">
+    <div class="container">
+      <div class="text-center reveal">
+        <div class="section-label">Unser Prozess</div>
+        <h2 class="section-title">Strukturierter Ablauf</h2>
+        <p class="section-subtitle">Kein Produktionsstopp länger als nötig — unser Ablauf ist auf maximale Effizienz ausgelegt.</p>
+      </div>
+      <div class="process-steps">
+        <div class="process-step reveal">
+          <div class="step-num">1</div>
+          <div class="step-title">Bestandsaufnahme</div>
+          <p class="step-desc">Vor-Ort-Besichtigung und Gefährdungsbeurteilung — wir planen sorgfältig, bevor wir starten.</p>
+        </div>
+        <div class="process-step reveal" style="transition-delay:0.15s">
+          <div class="step-num">2</div>
+          <div class="step-title">Vorbereitung</div>
+          <p class="step-desc">Absicherung sensibler Bereiche, Bereitstellung von Materialien und Schutzausrüstung.</p>
+        </div>
+        <div class="process-step reveal" style="transition-delay:0.3s">
+          <div class="step-num">3</div>
+          <div class="step-title">Reinigungsdurch­führung</div>
+          <p class="step-desc">Termingerechte Durchführung mit nachgewiesenen Industriereinigungsverfahren.</p>
+        </div>
+        <div class="process-step reveal" style="transition-delay:0.45s">
+          <div class="step-num">4</div>
+          <div class="step-title">Qualitätsabnahme</div>
+          <p class="step-desc">Abschlusskontrolle, Protokollierung und gemeinsame Abnahme mit dem Auftraggeber.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Preise Alternative -->
+  <section class="section" id="preise" style="background:var(--bg-secondary);border-top:1px solid var(--border);">
+    <div class="container">
+      <div class="text-center reveal">
+        <div class="section-label">Preisübersicht</div>
+        <h2 class="section-title">Individuelle Angebote</h2>
+        <p class="section-subtitle">Alle Preise auf Anfrage — kontaktieren Sie uns für ein individuelles Angebot.</p>
+        <div style="margin-top:32px;">
+          <a href="#anfrage" class="btn btn-primary">Angebot anfragen</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="anfrage">
+    <div class="container">
+      <div class="cta-inner reveal">
+        <div class="section-label" style="justify-content:center;margin:0 auto 20px;">Anfrage stellen</div>
+        <h2>Bereit für einen saubereren Betrieb?</h2>
+        <p>Kontaktieren Sie uns für ein unverbindliches Angebot. Wir antworten innerhalb von 24 Stunden.</p>
+        <div class="cta-actions">
+          <a href="mailto:[info@firma.de]" class="btn btn-primary">📧 Angebot anfordern</a>
+          <a href="tel:[+490000000000]" class="btn btn-secondary">📞 [+49 000 / 000000-0]</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="nav-logo" href="index.html" onclick="navigateBack(event)">[FIRMENNAME]</a>
+          <p>Industrieprofis für anspruchsvolle Reinigungsaufgaben — zuverlässig, zertifiziert und deutschlandweit im Einsatz.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Leistungen</h4>
+          <ul>
+            <li><a href="#leistungen">Maschinenreinigung</a></li>
+            <li><a href="#leistungen">Hallenreinigung</a></li>
+            <li><a href="#leistungen">Anlagenreinigung</a></li>
+            <li><a href="#leistungen">Wartungsservice</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Infos</h4>
+          <ul>
+            <li><a href="#ablauf">Ablauf</a></li>
+            <li><a href="#preise">Preise</a></li>
+            <li><a href="#anfrage">Anfrage</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>[FIRMENNAME]</h4>
+          <ul>
+            <li><a href="index.html" onclick="navigateBack(event)">Startseite</a></li>
+            <li><a href="impressum.html">Impressum</a></li>
+            <li><a href="datenschutz.html">Datenschutz</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 [FIRMENNAME] Industrieservice GmbH. Alle Rechte vorbehalten.</p>
+        <p><a href="index.html" onclick="navigateBack(event)" style="color:var(--accent-light);">← Zurück zur Startseite</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+    });
+    function toggleMenu() { document.getElementById('navLinks').classList.toggle('open'); document.getElementById('hamburger').classList.toggle('open'); }
+    function closeMenu() { document.getElementById('navLinks').classList.remove('open'); document.getElementById('hamburger').classList.remove('open'); }
+    document.addEventListener('click', (e) => {
+      const navLinks = document.getElementById('navLinks');
+      const navbar = document.getElementById('navbar');
+      if (navLinks && navLinks.classList.contains('open') && !navbar.contains(e.target)) {
+        closeMenu();
+      }
+    });
+    function navigateBack(e) {
+      e.preventDefault();
+      document.body.classList.add('page-exit');
+      setTimeout(() => { window.location.href = 'index.html'; }, 300);
+    }
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+      });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

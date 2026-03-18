@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>[FIRMENNAME] — Professionelle Unternehmensdienstleistungen</title>
+  <meta name="description" content="[FIRMENNAME] bietet erstklassige Dienstleistungen in den Bereichen Autoaufbereitung, Industrieservice und IT Dienstleistungen." />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Landing-specific styles ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      background: var(--gradient-hero);
+      overflow: hidden;
+      padding-top: 70px;
+    }
+
+    .hero-bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%);
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(37,99,235,0.12) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 80px 0 60px;
+      text-align: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      border: 1px solid rgba(59,130,246,0.25);
+      background: rgba(37,99,235,0.06);
+      padding: 7px 18px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      animation: pulse-dot 2s infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .hero h1 {
+      margin-bottom: 24px;
+      color: var(--white);
+    }
+
+    .hero h1 .accent { color: var(--accent-light); }
+
+    .hero-desc {
+      font-size: 1.15rem;
+      max-width: 580px;
+      margin: 0 auto 48px;
+      color: var(--gray-500);
+      line-height: 1.8;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      border-top: 1px solid var(--border);
+      padding-top: 40px;
+      margin-top: 56px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--gray-500);
+      margin-top: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── Service Selection ── */
+    .services-section {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .service-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 56px;
+    }
+
+    .service-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 40px 32px;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      group: true;
+    }
+
+    .service-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radius-xl);
+      border: 1px solid transparent;
+      transition: var(--transition);
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      background: var(--bg-card-hover);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), var(--shadow-glow);
+    }
+
+    .service-card:hover::after {
+      border-color: rgba(37,99,235,0.3);
+    }
+
+    .service-card-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin-bottom: 24px;
+      background: var(--accent-subtle);
+      border: 1px solid rgba(37,99,235,0.2);
+      transition: var(--transition);
+    }
+
+    .service-card:hover .service-card-icon {
+      background: rgba(37,99,235,0.15);
+      transform: scale(1.05);
+    }
+
+    .service-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+      color: var(--white);
+    }
+
+    .service-card p {
+      font-size: 0.9rem;
+      color: var(--gray-500);
+      line-height: 1.7;
+    }
+
+    .service-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .service-link-text {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--accent-light);
+    }
+
+    .service-arrow {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--accent-subtle);
+      border: 1px solid rgba(37,99,235,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .service-card:hover .service-arrow {
+      background: var(--accent);
+      transform: translateX(4px);
+    }
+
+    .service-arrow svg {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: var(--accent-light);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: var(--transition);
+    }
+
+    .service-card:hover .service-arrow svg {
+      stroke: white;
+    }
+
+    /* ── Trust section ── */
+    .trust-section {
+      text-align: center;
+      padding: 80px 0;
+    }
+
+    .trust-badges {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 48px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+
+    .trust-badge {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      transition: var(--transition);
+    }
+
+    .trust-badge:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
+
+    .trust-badge-icon {
+      font-size: 1.5rem;
+    }
+
+    .trust-badge-text {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--gray-300);
+    }
+
+    /* ── About / Geschichte layout ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+    }
+
+    @media (max-width: 768px) {
+      .service-cards { grid-template-columns: 1fr; }
+      .hero-stats { gap: 24px; flex-wrap: wrap; }
+      .hero-desc { font-size: 1rem; }
+      .trust-badges { 
+        display: grid; 
+        grid-template-columns: 1fr 1fr; 
+        gap: 10px; 
+        padding: 0; 
+      }
+      .trust-badge { 
+        flex-direction: column; 
+        justify-content: center; 
+        text-align: center; 
+        padding: 16px; 
+        border-radius: 12px; 
+        background: rgba(37,99,235,0.1); 
+        border: 1px solid rgba(37,99,235,0.3); 
+        gap: 8px; 
+      }
+      .trust-badge:last-child:nth-child(odd) {
+        grid-column: 1 / -1;
+      }
+      .trust-badge-icon {
+        font-size: 1.8rem;
+        margin-bottom: 4px;
+      }
+      .trust-badge-text {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--white);
+      }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-content { padding: 60px 0 40px; }
+      .values-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: 1fr;
+        gap: 12px;
+        align-items: stretch;
+      }
+      .values-grid .card {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 16px;
+        margin-top: 0 !important;
+      }
+      .values-grid .card h4 {
+        font-size: 15px !important;
+        font-weight: bold;
+      }
+      .values-grid .card p {
+        font-size: 13px !important;
+        color: var(--gray-500) !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .service-cards { gap: 16px; }
+      .service-card { padding: 28px 20px; }
+      .hero-eyebrow { font-size: 0.72rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a class="nav-logo" href="index.html">INTEX<span>O</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#startseite" class="active" onclick="closeMenu()">Startseite</a></li>
+        <li><a href="#geschichte" onclick="closeMenu()">Geschichte</a></li>
+        <li><a href="#kontakt" onclick="closeMenu()">Kontakt</a></li>
+        <li><a href="#services" class="nav-cta" onclick="closeMenu()">Services</a></li>
+      </ul>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menü öffnen" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" id="startseite">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-glow"></div>
+    <div class="container">
+      <div class="hero-content reveal">
+        <div class="hero-eyebrow">Deutschlandweit verfügbar</div>
+        <h1>Exzellenz in jedem<br><span class="accent">Dienstleistungsbereich</span></h1>
+        <p class="hero-desc">[FIRMENNAME] steht für kompromisslose Qualität und Professionalität. Ob Fahrzeugaufbereitung, Industrieservice oder digitale Transformation — wir liefern Ergebnisse, die überzeugen.</p>
+        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+          <a href="#services" class="btn btn-primary">Unsere Services entdecken
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+          <a href="#kontakt" class="btn btn-secondary">Kontakt aufnehmen</a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat">
+            <div class="stat-number">1.200+</div>
+            <div class="stat-label">Zufriedene Kunden</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">98%</div>
+            <div class="stat-label">Kundenzufriedenheit</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">8+</div>
+            <div class="stat-label">Jahre Erfahrung</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">3</div>
+            <div class="stat-label">Servicebereiche</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="services-section section" id="services">
+    <div class="container">
+      <div class="text-center reveal">
+        <div class="section-label">Was wir anbieten</div>
+        <h2 class="section-title">Unsere Dienstleistungsbereiche</h2>
+        <p class="section-subtitle">Wählen Sie Ihren gewünschten Servicebereich und erfahren Sie, wie [FIRMENNAME] Ihnen helfen kann.</p>
+      </div>
+
+      <div class="service-cards">
+        <a href="autoaufbereitung.html" class="service-card reveal" onclick="navigateTo(event, 'autoaufbereitung.html')">
+          <div class="service-card-icon">🚗</div>
+          <h3>Autoaufbereitung</h3>
+          <p>Von der schonenden Außenreinigung bis zur perfekten Innenaufbereitung — wir bringen Ihr Fahrzeug in Bestform.</p>
+          <div class="service-card-footer">
+            <span class="service-link-text">Mehr erfahren</span>
+            <div class="service-arrow">
+              <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </div>
+          </div>
+        </a>
+
+        <a href="industrieservice.html" class="service-card reveal" style="transition-delay:0.1s" onclick="navigateTo(event, 'industrieservice.html')">
+          <div class="service-card-icon">🏭</div>
+          <h3>Industrieservice</h3>
+          <p>Professionelle Industriereinigung und Wartungsservice für Produktionsanlagen, Maschinen und Betriebsgebäude.</p>
+          <div class="service-card-footer">
+            <span class="service-link-text">Mehr erfahren</span>
+            <div class="service-arrow">
+              <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </div>
+          </div>
+        </a>
+
+        <a href="it-dienstleistungen.html" class="service-card reveal" style="transition-delay:0.2s" onclick="navigateTo(event, 'it-dienstleistungen.html')">
+          <div class="service-card-icon">💻</div>
+          <h3>IT Dienstleistungen</h3>
+          <p>Netzwerkinfrastruktur, IT-Support und digitale Transformation — wir begleiten Ihr Unternehmen in die Zukunft.</p>
+          <div class="service-card-footer">
+            <span class="service-link-text">Mehr erfahren</span>
+            <div class="service-arrow">
+              <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Geschichte / About -->
+  <section class="section" id="geschichte" style="background:var(--bg-primary);">
+    <div class="container">
+      <div class="about-grid">
+        <div class="reveal">
+          <div class="section-label">Über uns</div>
+          <h2 class="section-title">Unsere Geschichte</h2>
+          <div class="divider"></div>
+          <p style="margin-bottom:20px;">[FIRMENNAME] wurde 2016 mit einer klaren Vision gegründet: erstklassige Dienstleistungen zu liefern, die echten Mehrwert schaffen. Was als kleines Autoaufbereitungsunternehmen begann, wuchs schnell zu einem vielseitigen Dienstleistungsunternehmen heran.</p>
+          <p style="margin-bottom:32px;">Heute vertrauen uns über 1.200 Kunden aus ganz Deutschland — von Privatpersonen bis hin zu Industriekonzernen. Unser Team aus über 40 Fachkräften arbeitet täglich daran, dieses Vertrauen zu rechtfertigen.</p>
+          <a href="#services" class="btn btn-primary">Unsere Leistungen ansehen</a>
+        </div>
+        <div class="reveal" style="transition-delay:0.2s;">
+          <div class="values-grid">
+            <div class="card">
+              <div style="font-size:1.8rem;margin-bottom:12px;">🎯</div>
+              <h4 style="margin-bottom:8px;font-size:1rem;">Präzision</h4>
+              <p style="font-size:0.85rem;">Jede Aufgabe wird mit höchster Sorgfalt ausgeführt.</p>
+            </div>
+            <div class="card" style="margin-top:24px;">
+              <div style="font-size:1.8rem;margin-bottom:12px;">🤝</div>
+              <h4 style="margin-bottom:8px;font-size:1rem;">Verlässlichkeit</h4>
+              <p style="font-size:0.85rem;">Auf uns können Sie sich jederzeit verlassen.</p>
+            </div>
+            <div class="card">
+              <div style="font-size:1.8rem;margin-bottom:12px;">🏆</div>
+              <h4 style="margin-bottom:8px;font-size:1rem;">Qualität</h4>
+              <p style="font-size:0.85rem;">Nur die besten Materialien und Methoden.</p>
+            </div>
+            <div class="card" style="margin-top:24px;">
+              <div style="font-size:1.8rem;margin-bottom:12px;">🚀</div>
+              <h4 style="margin-bottom:8px;font-size:1rem;">Innovation</h4>
+              <p style="font-size:0.85rem;">Wir setzen auf modernste Technologien.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust -->
+  <section class="trust-section" style="background:var(--bg-secondary);border-top:1px solid var(--border);">
+    <div class="container">
+      <p class="section-label" style="justify-content:center;">Vertrauen & Güte</p>
+      <h2 class="section-title reveal" style="margin-bottom:8px;">Warum Kunden [FIRMENNAME] wählen</h2>
+      <div class="trust-badges reveal">
+        <div class="trust-badge"><span class="trust-badge-icon">✅</span><span class="trust-badge-text">ISO-zertifiziert</span></div>
+        <div class="trust-badge"><span class="trust-badge-icon">⚡</span><span class="trust-badge-text">24h Reaktionszeit</span></div>
+        <div class="trust-badge"><span class="trust-badge-icon">🛡️</span><span class="trust-badge-text">Vollversichert</span></div>
+        <div class="trust-badge"><span class="trust-badge-icon">🌱</span><span class="trust-badge-text">Umweltschonend</span></div>
+        <div class="trust-badge"><span class="trust-badge-icon">🏅</span><span class="trust-badge-text">TÜV-geprüft</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kontakt -->
+  <section class="section" id="kontakt" style="background:var(--bg-primary);">
+    <div class="container">
+      <div class="text-center reveal">
+        <div class="section-label">Kontakt</div>
+        <h2 class="section-title">Bereit loszulegen?</h2>
+        <p class="section-subtitle">Nehmen Sie jetzt Kontakt auf und erhalten Sie innerhalb von 24 Stunden ein unverbindliches Angebot.</p>
+        <div style="display:flex;gap:16px;justify-content:center;margin-top:32px;flex-wrap:wrap;">
+          <a href="mailto:[info@firma.de]" class="btn btn-primary">📧 [info@firma.de]</a>
+          <a href="tel:[+490000000000]" class="btn btn-secondary">📞 [+49 000 / 000000-0]</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="nav-logo" href="index.html">[FIRMENNAME]</a>
+          <p>Professionelle Dienstleistungen in den Bereichen Fahrzeugaufbereitung, Industrieservice und IT — zuverlässig, qualitätsbewusst und deutschlandweit.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="#startseite">Startseite</a></li>
+            <li><a href="#geschichte">Geschichte</a></li>
+            <li><a href="#kontakt">Kontakt</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="autoaufbereitung.html">Autoaufbereitung</a></li>
+            <li><a href="industrieservice.html">Industrieservice</a></li>
+            <li><a href="it-dienstleistungen.html">IT Dienstleistungen</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Rechtliches</h4>
+          <ul>
+            <li><a href="impressum.html">Impressum</a></li>
+            <li><a href="datenschutz.html">Datenschutz</a></li>
+            <li><a href="#">AGB</a></li>
+            <li><a href="#">Cookie-Richtlinie</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 [FIRMENNAME] GmbH. Alle Rechte vorbehalten.</p>
+        <p>Made with 🇩🇪 in Deutschland</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Navbar scroll
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Mobile menu
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('open');
+      document.getElementById('hamburger').classList.toggle('open');
+    }
+    function closeMenu() {
+      document.getElementById('navLinks').classList.remove('open');
+      document.getElementById('hamburger').classList.remove('open');
+    }
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      const navLinks = document.getElementById('navLinks');
+      const navbar = document.getElementById('navbar');
+      if (navLinks && navLinks.classList.contains('open') && !navbar.contains(e.target)) {
+        closeMenu();
+      }
+    });
+
+    // Page transition on service card click
+    function navigateTo(e, url) {
+      e.preventDefault();
+      document.body.classList.add('page-exit');
+      setTimeout(() => { window.location.href = url; }, 300);
+    }
+
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

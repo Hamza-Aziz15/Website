@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>[FIRMENNAME] Autoaufbereitung — Professionelle Fahrzeugpflege</title>
+  <meta name="description" content="[FIRMENNAME] Autoaufbereitung bietet professionelle Fahrzeugpflege: Außenreinigung, Innenraumaufbereitung, Motorwäsche und Premium-Service." />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    :root {
+      --accent: #1d6fe8;
+      --accent-light: #4f9eff;
+      --accent-glow: rgba(29,111,232,0.28);
+      --accent-subtle: rgba(29,111,232,0.09);
+      --gradient-accent: linear-gradient(135deg, #1558c0, #1d6fe8);
+    }
+
+    /* ── Hero ── */
+    .service-hero {
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 70px;
+      background: linear-gradient(160deg, #060a10 0%, #0a1220 55%, #060a10 100%);
+    }
+
+    .hero-deco-circle {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero-deco-circle.c1 {
+      width: 600px; height: 600px;
+      right: -100px; top: -100px;
+      background: radial-gradient(circle, rgba(29,111,232,0.10) 0%, transparent 70%);
+    }
+    .hero-deco-circle.c2 {
+      width: 300px; height: 300px;
+      left: 10%; bottom: -60px;
+      background: radial-gradient(circle, rgba(29,111,232,0.06) 0%, transparent 70%);
+    }
+
+    .hero-grid-lines {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+    }
+
+    .service-hero-inner {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      padding: 80px 0;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      background: var(--accent-subtle);
+      border: 1px solid rgba(79,158,255,0.2);
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 22px;
+    }
+
+    .hero-badge::before {
+      content: '🚗';
+      font-size: 0.9rem;
+    }
+
+    .service-hero h1 {
+      margin-bottom: 22px;
+      color: var(--white);
+    }
+
+    .service-hero h1 em {
+      font-style: normal;
+      color: var(--accent-light);
+    }
+
+    .service-hero p {
+      font-size: 1.05rem;
+      color: var(--gray-500);
+      margin-bottom: 36px;
+      line-height: 1.8;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .hero-visual {
+      position: relative;
+    }
+
+    .hero-visual-card {
+      background: linear-gradient(145deg, #111926, #0d1420);
+      border: 1px solid rgba(29,111,232,0.2);
+      border-radius: var(--radius-xl);
+      padding: 36px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-visual-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--gradient-accent);
+    }
+
+    .hero-visual-emoji {
+      font-size: 5rem;
+      text-align: center;
+      display: block;
+      margin-bottom: 24px;
+      filter: drop-shadow(0 0 30px rgba(29,111,232,0.4));
+    }
+
+    .hero-visual-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .mini-stat {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      text-align: center;
+    }
+
+    .mini-stat-num {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent-light);
+    }
+
+    .mini-stat-label {
+      font-size: 0.78rem;
+      color: var(--gray-500);
+      margin-top: 4px;
+    }
+
+    /* ── Services Grid ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .svc-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      transition: var(--transition);
+    }
+
+    .svc-card:hover {
+      border-color: rgba(29,111,232,0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.35), 0 0 30px rgba(29,111,232,0.08);
+    }
+
+    .svc-icon {
+      width: 52px; height: 52px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      background: var(--accent-subtle);
+      border: 1px solid rgba(29,111,232,0.2);
+      margin-bottom: 20px;
+    }
+
+    .svc-card h3 { font-size: 1.1rem; margin-bottom: 8px; }
+
+    /* ── Process ── */
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-top: 56px;
+      position: relative;
+    }
+
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: 12%;
+      right: 12%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      z-index: 0;
+    }
+
+    .process-step {
+      text-align: center;
+      padding: 0 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-num {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--gradient-accent);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: white;
+      margin: 0 auto 20px;
+      box-shadow: 0 0 24px var(--accent-glow);
+    }
+
+    .step-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .step-desc {
+      font-size: 0.85rem;
+      color: var(--gray-500);
+    }
+
+    /* ── Pricing ── */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 56px;
+      align-items: center;
+    }
+
+    .price-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 36px 32px;
+      text-align: center;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .price-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .price-card.popular {
+      border-color: rgba(29,111,232,0.4);
+      background: linear-gradient(160deg, #0f1c35, #0d1420);
+      transform: scale(1.04);
+    }
+
+    .price-card.popular:hover {
+      transform: scale(1.04) translateY(-4px);
+    }
+
+    .popular-badge {
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gradient-accent);
+      color: white;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 16px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    .price-tier-name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      margin-bottom: 16px;
+    }
+
+    .price-amount {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 4px;
+      line-height: 1;
+    }
+
+    .price-from {
+      font-size: 0.82rem;
+      color: var(--gray-500);
+      margin-bottom: 28px;
+    }
+
+    .price-features {
+      list-style: none;
+      text-align: left;
+      margin-bottom: 28px;
+    }
+
+    .price-features li {
+      font-size: 0.88rem;
+      color: var(--gray-300);
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .price-features li::before {
+      content: '✓';
+      color: var(--accent-light);
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+
+    /* ── CTA Section ── */
+    .cta-section {
+      background: linear-gradient(135deg, #0a1628, #0d1f3c);
+      border-top: 1px solid rgba(29,111,232,0.2);
+      border-bottom: 1px solid rgba(29,111,232,0.2);
+    }
+
+    .cta-inner {
+      text-align: center;
+      padding: 80px 0;
+    }
+
+    .cta-inner h2 { margin-bottom: 16px; }
+    .cta-inner p { max-width: 500px; margin: 0 auto 36px; }
+
+    .cta-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 900px) {
+      .service-hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .hero-visual { display: none; }
+      .services-grid { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+      .process-steps::before { display: none; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .price-card.popular { transform: scale(1); }
+      .price-card.popular:hover { transform: translateY(-4px); }
+    }
+
+    @media (max-width: 768px) {
+      .service-hero { min-height: auto; padding-bottom: 60px; overflow: hidden; }
+      .service-hero-inner { padding: 48px 0 0; }
+      .hero-ctas { flex-direction: column; }
+      .hero-ctas .btn { width: 100%; justify-content: center; }
+      .process-steps { grid-template-columns: 1fr; }
+      .hero-deco-circle.c1 { width: 280px; height: 280px; right: -60px; top: -60px; }
+      .hero-deco-circle.c2 { width: 160px; height: 160px; }
+    }
+
+    @media (max-width: 480px) {
+      .svc-card { padding: 24px; }
+      .price-card { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a class="nav-logo" href="index.html" onclick="navigateBack(event)">INTEX<span>O</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" onclick="navigateBack(event)">← Zurück zur Startseite</a></li>
+        <li><a href="#leistungen" onclick="closeMenu()">Leistungen</a></li>
+        <li><a href="#ablauf" onclick="closeMenu()">Ablauf</a></li>
+        <li><a href="#preise" onclick="closeMenu()">Preise</a></li>
+        <li><a href="#termin" class="nav-cta" onclick="closeMenu()">Termin buchen</a></li>
+      </ul>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menü öffnen" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="service-hero">
+    <div class="hero-deco-circle c1"></div>
+    <div class="hero-deco-circle c2"></div>
+    <div class="hero-grid-lines"></div>
+    <div class="container">
+      <div class="service-hero-inner">
+        <div class="reveal">
+          <div class="hero-badge">Autoaufbereitung</div>
+          <h1>Ihr Fahrzeug verdient das <em>Beste</em></h1>
+          <p>Wir bringen Ihr Auto mit professionellen Techniken und hochwertigen Produkten in den Originalzustand zurück — innen wie außen.</p>
+          <div class="hero-ctas">
+            <a href="#termin" class="btn btn-primary">
+              Termin vereinbaren
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </a>
+            <a href="#anfrage" class="btn btn-secondary">Preise anfragen</a>
+          </div>
+        </div>
+        <div class="hero-visual reveal" style="transition-delay:0.2s">
+          <div class="hero-visual-card">
+            <span class="hero-visual-emoji">🚗</span>
+            <div class="hero-visual-stats">
+              <div class="mini-stat">
+                <div class="mini-stat-num">500+</div>
+                <div class="mini-stat-label">Fahrzeuge/Jahr</div>
+              </div>
+              <div class="mini-stat">
+                <div class="mini-stat-num">99%</div>
+                <div class="mini-stat-label">Zufriedenheit</div>
+              </div>
+              <div class="mini-stat">
+                <div class="mini-stat-num">8 J.</div>
+                <div class="mini-stat-label">Erfahrung</div>
+              </div>
+              <div class="mini-stat">
+                <div class="mini-stat-num">24h</div>
+                <div class="mini-stat-label">Abwicklung</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Leistungen -->
+  <section class="section" id="leistungen" style="background:var(--bg-secondary);border-top:1px solid var(--border);">
+    <div class="container">
+      <div class="text-center reveal">
+        <div class="section-label">Unsere Leistungen</div>
+        <h2 class="section-title">Was wir für Sie tun</h2>
+        <p class="section-subtitle">Von der schnellen Grundreinigung bis zum umfassenden Premium-Service — wir haben die richtige Lösung für jedes Fahrzeug.</p>
+      </div>
+      <div class="services-grid" style="margin-top:56px;">
+        <div class="svc-card reveal">
+          <div class="svc-icon">✨</div>
+          <h3>Außenreinigung</h3>
+          <p style="font-size:0.9rem;color:var(--gray-500);margin-bottom:16px;">Schonende Handwäsche mit professionellen pH-neutralen Mitteln für maximalen Lackschutz.</p>
+          <ul class="checklist">
+            <li>Handwäsche mit Zwei-Eimer-Methode</li>
+            <li>Felgenreinigung & Reifenpflege</li>
+            <li>Scheibenreinigung innen & außen</li>
+            <li>Türeinstiegspflege</li>
+            <li>Klarwassernachspülung</li>
+          </ul>
+        </div>
+        <div class="svc-card reveal" style="transition-delay:0.1s">
+          <div class="svc-icon">🪑</div>
+          <h3>Innenraumaufbereitung</h3>
+          <p style="font-size:0.9rem;color:var(--gray-500);margin-bottom:16px;">Gründliche Reinigung aller Oberflächen für ein frisches, gepflegtes Fahrzeuginneres.</p>
+          <ul class="checklist">
+            <li>Tiefenreinigung Sitze & Polster</li>
+            <li>Dampfreinigung Armaturenbrett</li>
+            <li>Teppich- & Fußmattenreinigung</li>
+            <li>Geruchsneutralisation</li>
+            <li>Kunststoffpflege & -versiegelung</li>
+          </ul>
+        </div>
+        <div class="svc-card reveal" style="transition-delay:0.2s">
+          <div class="svc-icon">🔧</div>
+          <h3>Motorwäsche</h3>
+          <p style="font-size:0.9rem;color:var(--gray-500);margin-bottom:16px;">Professionelle Motorraum­reinigung zum Schutz vor Korrosion und für ein gepflegtes Erscheinungsbild.</p>
+          <ul class="checklist">
+            <li>Fettlösung & Druckreinigung</li>
+            <li>Kunststoffteile-Pflege</li>
+            <li>Kabelbaum-Schonreinigung</li>
+            <li>Motorversiegelung</li>
+            <li>Leckage-Sichtkontrolle</li>
+          </ul>
+        </div>
+        <div class="svc-card reveal" style="transition-delay:0.3s">
+          <div class="svc-icon">💎</div>
+          <h3>Premium-Service</h3>
+          <p style="font-size:0.9rem;color:var(--gray-500);margin-bottom:16px;">Das Rundum-Sorglos-Paket für anspruchsvolle Fahrzeughalter mit höchsten Ansprüchen.</p>
+          <ul class="checklist">
+            <li>Lackpolitur & Nanoversiegelung</li>
+            <li>Paint Protection Film (PPF)</li>
+            <li>Lederpflege & Imprägnierung</li>
+            <li>Scheinwerferrestaurierung</li>
+            <li>Geruchsbeseitigung (Ozon)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ablauf -->
+  <section class="section" id="ablauf" style="background:var(--bg-primary);">
+    <div class="container">
+      <div class="text-center reveal">
+        <div class="section-label">Unser Prozess</div>
+        <h2 class="section-title">So läuft es ab</h2>
+        <p class="section-subtitle">Ein strukturierter, transparenter Ablauf — damit Sie genau wissen, was mit Ihrem Fahrzeug passiert.</p>
+      </div>
+      <div class="process-steps">
+        <div class="process-step reveal">
+          <div class="step-num">1</div>
+          <div class="step-title">Fahrzeuganalyse</div>
+          <p class="step-desc">Wir begutachten Ihr Fahrzeug und erstellen ein individuelles Aufbereitungskonzept.</p>
+        </div>
+        <div class="process-step reveal" style="transition-delay:0.15s">
+          <div class="step-num">2</div>
+          <div class="step-title">Vorreinigung</div>
+          <p class="step-desc">Schonende Vorentfernung von grobem Schmutz und Vorbereitung der kritischen Bereiche.</p>
+        </div>
+        <div class="process-step reveal" style="transition-delay:0.3s">
+          <div class="step-num">3</div>
+          <div class="step-title">Hauptreinigung</div>
+          <p class="step-desc">Gründliche, schichtweise Reinigung aller Fahrzeugbereiche mit Spezialreinigern.</p>
+        </div>
+        <div class="process-step reveal" style="transition-delay:0.45s">
+          <div class="step-num">4</div>
+          <div class="step-title">Aufbereitung</div>
+          <p class="step-desc">Finishing, Versiegelung und Qualitätskontrolle — Ihr Fahrzeug im Showroom-Zustand.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Preise Alternative -->
+  <section class="section" id="preise" style="background:var(--bg-secondary);border-top:1px solid var(--border);">
+    <div class="container">
+      <div class="text-center reveal">
+        <div class="section-label">Preisübersicht</div>
+        <h2 class="section-title">Individuelle Angebote</h2>
+        <p class="section-subtitle">Alle Preise auf Anfrage — kontaktieren Sie uns für ein individuelles Angebot.</p>
+        <div style="margin-top:32px;">
+          <a href="#anfrage" class="btn btn-primary">Preise anfragen</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="termin">
+    <div class="container">
+      <div class="cta-inner reveal">
+        <div class="section-label" style="justify-content:center;margin:0 auto 20px;">Termin vereinbaren</div>
+        <h2>Bereit für ein makelloses Fahrzeug?</h2>
+        <p>Vereinbaren Sie noch heute Ihren Termin. Wir sind für Sie da — flexible Terminvergabe, schnelle Abwicklung.</p>
+        <div class="cta-actions">
+          <a href="mailto:[info@firma.de]" class="btn btn-primary">
+            📅 Termin online buchen
+          </a>
+          <a href="tel:[+490000000000]" class="btn btn-secondary">📞 [+49 000 / 000000-0]</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="nav-logo" href="index.html" onclick="navigateBack(event)">[FIRMENNAME]</a>
+          <p>Professionelle Autoaufbereitung mit Leidenschaft und Liebe zum Detail. Ihr Fahrzeug in besten Händen.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Service</h4>
+          <ul>
+            <li><a href="#leistungen">Außenreinigung</a></li>
+            <li><a href="#leistungen">Innenraumaufbereitung</a></li>
+            <li><a href="#leistungen">Motorwäsche</a></li>
+            <li><a href="#leistungen">Premium-Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Ablauf</h4>
+          <ul>
+            <li><a href="#ablauf">Fahrzeuganalyse</a></li>
+            <li><a href="#preise">Preise</a></li>
+            <li><a href="#termin">Termin buchen</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>[FIRMENNAME]</h4>
+          <ul>
+            <li><a href="index.html" onclick="navigateBack(event)">Startseite</a></li>
+            <li><a href="impressum.html">Impressum</a></li>
+            <li><a href="datenschutz.html">Datenschutz</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 [FIRMENNAME] Autoaufbereitung. Alle Rechte vorbehalten.</p>
+        <p><a href="index.html" onclick="navigateBack(event)" style="color:var(--accent-light);">← Zurück zur Startseite</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+    });
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('open');
+      document.getElementById('hamburger').classList.toggle('open');
+    }
+    function closeMenu() {
+      document.getElementById('navLinks').classList.remove('open');
+      document.getElementById('hamburger').classList.remove('open');
+    }
+
+    document.addEventListener('click', (e) => {
+      const navLinks = document.getElementById('navLinks');
+      const navbar = document.getElementById('navbar');
+      if (navLinks && navLinks.classList.contains('open') && !navbar.contains(e.target)) {
+        closeMenu();
+      }
+    });
+    function navigateBack(e) {
+      e.preventDefault();
+      document.body.classList.add('page-exit');
+      setTimeout(() => { window.location.href = 'index.html'; }, 300);
+    }
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

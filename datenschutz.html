@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>[FIRMENNAME] — Datenschutz</title>
+  <meta name="description" content="Datenschutzerklärung von [FIRMENNAME]" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .legal-page {
+      padding-top: 120px;
+      padding-bottom: 80px;
+      min-height: 80vh;
+    }
+    .legal-content {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 48px;
+    }
+    .legal-content h1 {
+      margin-bottom: 32px;
+      font-size: 2.5rem;
+    }
+    .legal-content h2 {
+      margin-top: 32px;
+      margin-bottom: 16px;
+      font-size: 1.5rem;
+      color: var(--white);
+    }
+    .legal-content p {
+      margin-bottom: 16px;
+      color: var(--gray-300);
+    }
+    @media (max-width: 768px) {
+      .legal-content { padding: 32px 24px; }
+      .legal-content h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a class="nav-logo" href="index.html">[FIRMENNAME]</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Startseite</a></li>
+      </ul>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menü öffnen" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Content -->
+  <section class="legal-page">
+    <div class="container">
+      <div class="legal-content">
+        <h1>Datenschutzerklärung</h1>
+
+        <h2>Verantwortlicher</h2>
+        <p>
+          Verantwortlich für die Datenverarbeitung auf dieser Website ist:<br>
+          [FIRMENNAME]<br>
+          [Straße Hausnummer]<br>
+          [PLZ Stadt]<br>
+          Telefon: [+49 000 / 000000-0]<br>
+          E-Mail: [info@firma.de]
+        </p>
+
+        <h2>Datenerfassung</h2>
+        <p>Die Datenerfassung auf dieser Website erfolgt durch den Websitebetreiber. Die Daten können technischer Natur sein (z.B. Internetbrowser, Betriebssystem oder Uhrzeit des Seitenaufrufs) oder Daten sein, die Sie uns mitteilen (z.B. im Kontaktformular).</p>
+
+        <h2>Ihre Rechte</h2>
+        <p>Sie haben jederzeit das Recht, unentgeltlich Auskunft über Herkunft, Empfänger und Zweck Ihrer gespeicherten personenbezogenen Daten zu erhalten. Sie haben außerdem ein Recht, die Berichtigung, Sperrung oder Löschung dieser Daten zu verlangen.</p>
+
+        <h2>Cookies</h2>
+        <p>Die Internetseiten verwenden teilweise sogenannte Cookies. Cookies richten auf Ihrem Rechner keinen Schaden an und enthalten keine Viren. Sie dienen dazu, unser Angebot nutzerfreundlicher, effektiver und sicherer zu machen.</p>
+
+        <h2>Kontakt</h2>
+        <p>Wenn Sie Fragen zum Datenschutz haben, schreiben Sie uns bitte eine E-Mail oder wenden Sie sich direkt an die für den Datenschutz verantwortliche Person in unserer Organisation.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="nav-logo" href="index.html">[FIRMENNAME]</a>
+          <p>Professionelle Dienstleistungen — zuverlässig, qualitätsbewusst und deutschlandweit.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Rechtliches</h4>
+          <ul>
+            <li><a href="impressum.html">Impressum</a></li>
+            <li><a href="datenschutz.html">Datenschutz</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 [FIRMENNAME]. Alle Rechte vorbehalten.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+    });
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('open');
+      document.getElementById('hamburger').classList.toggle('open');
+    }
+    function closeMenu() {
+      document.getElementById('navLinks').classList.remove('open');
+      document.getElementById('hamburger').classList.remove('open');
+    }
+    document.addEventListener('click', (e) => {
+      const navLinks = document.getElementById('navLinks');
+      const navbar = document.getElementById('navbar');
+      if (navLinks && navLinks.classList.contains('open') && !navbar.contains(e.target)) {
+        closeMenu();
+      }
+    });
+  </script>
+</body>
+</html>
