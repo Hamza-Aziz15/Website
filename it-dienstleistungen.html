@@ -1,470 +1,289 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>[FIRMENNAME] IT Dienstleistungen — Digitale Transformation & IT-Support</title>
-  <meta name="description" content="[FIRMENNAME] IT Dienstleistungen: IT-Support, Netzwerkinfrastruktur und Digitalisierung für Ihr Unternehmen." />
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IT Dienstleistungen | NexGroup</title>
+  <link rel="stylesheet" href="style.css">
   <style>
-    /* IT accent — emerald/teal green for a distinct tech identity */
-    :root {
-      --accent: #059669;
-      --accent-light: #10b981;
-      --accent-glow: rgba(16,185,129,0.25);
-      --accent-subtle: rgba(16,185,129,0.08);
-      --gradient-accent: linear-gradient(135deg, #047857, #059669);
-    }
-
-    .service-hero {
-      min-height: 92vh;
-      display: flex;
-      align-items: center;
-      position: relative;
-      overflow: hidden;
-      padding-top: 70px;
-      background: linear-gradient(160deg, #06100c 0%, #081a12 55%, #06100c 100%);
-    }
-
-    .hero-deco-circle { position:absolute; border-radius:50%; pointer-events:none; }
-    .hero-deco-circle.c1 { width:650px; height:650px; right:-120px; top:-120px; background:radial-gradient(circle, rgba(16,185,129,0.09) 0%, transparent 70%); }
-    .hero-deco-circle.c2 { width:350px; height:350px; left:5%; bottom:-80px; background:radial-gradient(circle, rgba(16,185,129,0.05) 0%, transparent 70%); }
-
-    /* Animated grid for a techy look */
-    .hero-grid-lines {
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(16,185,129,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(16,185,129,0.04) 1px, transparent 1px);
-      background-size: 48px 48px;
-      mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
-    }
-
-    /* terminal blinking cursor deco */
-    .terminal-deco {
-      position: absolute;
-      bottom: 40px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-family: monospace;
-      font-size: 0.75rem;
-      color: rgba(16,185,129,0.35);
-      letter-spacing: 0.05em;
-      pointer-events: none;
-      white-space: nowrap;
-    }
-
-    .service-hero-inner { position:relative; z-index:2; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; padding:80px 0; }
-
-    .hero-badge { display:inline-flex; align-items:center; gap:8px; font-size:0.78rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent-light); background:var(--accent-subtle); border:1px solid rgba(16,185,129,0.2); padding:6px 14px; border-radius:100px; margin-bottom:22px; }
-    .hero-badge::before { content:'💻'; font-size:0.9rem; }
-
-    .service-hero h1 { margin-bottom:22px; color:var(--white); }
-    .service-hero h1 em { font-style:normal; color:var(--accent-light); }
-    .service-hero p { font-size:1.05rem; color:var(--gray-500); margin-bottom:36px; line-height:1.8; }
-    .hero-ctas { display:flex; gap:14px; flex-wrap:wrap; }
-
-    .hero-visual-card { background:linear-gradient(145deg, #0b1e15, #081410); border:1px solid rgba(16,185,129,0.18); border-radius:var(--radius-xl); padding:36px; position:relative; overflow:hidden; }
-    .hero-visual-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--gradient-accent); }
-
-    /* Terminal window style */
-    .terminal-window {
-      background: #060f0a;
-      border: 1px solid rgba(16,185,129,0.15);
-      border-radius: 10px;
-      overflow: hidden;
-      margin-bottom: 20px;
-    }
-    .terminal-titlebar {
-      background: rgba(16,185,129,0.06);
-      padding: 8px 14px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      border-bottom: 1px solid rgba(16,185,129,0.1);
-    }
-    .terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
-    .terminal-dot.red { background: #ff5f57; }
-    .terminal-dot.yellow { background: #ffbd2e; }
-    .terminal-dot.green { background: var(--accent-light); }
-    .terminal-body { padding: 16px; font-family: 'Courier New', monospace; font-size: 0.75rem; color: rgba(16,185,129,0.7); line-height: 1.8; }
-    .terminal-body .t-green { color: var(--accent-light); }
-    .terminal-body .t-gray { color: rgba(255,255,255,0.25); }
-    .cursor { display: inline-block; width: 7px; height: 13px; background: var(--accent-light); vertical-align: middle; animation: blink 1s step-end infinite; }
-    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-    .hero-visual-stats { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-    .mini-stat { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:var(--radius-md); padding:14px; text-align:center; }
-    .mini-stat-num { font-family:var(--font-display); font-size:1.3rem; font-weight:700; color:var(--accent-light); }
-    .mini-stat-label { font-size:0.75rem; color:var(--gray-500); margin-top:4px; }
-
-    /* nav override */
-    .nav-cta { background:var(--accent) !important; }
-    .nav-cta:hover { background:var(--accent-light) !important; }
-
-    /* section-label override */
-    .section-label { color:var(--accent-light); background:var(--accent-subtle); border-color:rgba(16,185,129,0.2); }
-    .section-label::before { background:var(--accent-light); }
-
-    /* checklist override */
-    .checklist li::before { background:var(--accent-subtle); border-color:rgba(16,185,129,0.3);
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6l3 3 5-5' stroke='%2310b981' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-      background-repeat:no-repeat; background-position:center; background-size:12px; }
-
-    .btn-primary { background:var(--gradient-accent); box-shadow:0 4px 20px var(--accent-glow); }
-    .btn-primary:hover { box-shadow:0 8px 30px rgba(16,185,129,0.4); }
-
-    /* services grid */
-    .services-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; margin-top:56px; }
-    .svc-card { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-lg); padding:32px; transition:var(--transition); }
-    .svc-card:hover { border-color:rgba(16,185,129,0.3); transform:translateY(-4px); box-shadow:0 16px 48px rgba(0,0,0,0.35), 0 0 30px rgba(16,185,129,0.07); }
-    .svc-icon { width:52px; height:52px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.4rem; background:var(--accent-subtle); border:1px solid rgba(16,185,129,0.2); margin-bottom:20px; }
-    .svc-card h3 { font-size:1.1rem; margin-bottom:8px; }
-
-    /* process */
-    .process-steps { display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin-top:56px; position:relative; }
-    .process-steps::before { content:''; position:absolute; top:28px; left:12%; right:12%; height:2px; background:linear-gradient(90deg, var(--accent), transparent); z-index:0; }
-    .process-step { text-align:center; padding:0 16px; position:relative; z-index:1; }
-    .step-num { width:56px; height:56px; border-radius:50%; background:var(--gradient-accent); display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-size:1.1rem; font-weight:700; color:white; margin:0 auto 20px; box-shadow:0 0 24px var(--accent-glow); }
-    .step-title { font-family:var(--font-display); font-size:1rem; font-weight:600; color:var(--white); margin-bottom:8px; }
-    .step-desc { font-size:0.85rem; color:var(--gray-500); }
-
-    /* pricing */
-    .pricing-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:56px; align-items:center; }
-    .price-card { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-xl); padding:36px 32px; text-align:center; transition:var(--transition); position:relative; }
-    .price-card:hover { transform:translateY(-4px); }
-    .price-card.popular { border-color:rgba(16,185,129,0.4); background:linear-gradient(160deg, #08201a, #061510); transform:scale(1.04); }
-    .price-card.popular:hover { transform:scale(1.04) translateY(-4px); }
-    .popular-badge { position:absolute; top:-13px; left:50%; transform:translateX(-50%); background:var(--gradient-accent); color:white; font-size:0.72rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:4px 16px; border-radius:100px; white-space:nowrap; }
-    .price-tier-name { font-size:0.8rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--gray-500); margin-bottom:16px; }
-    .price-amount { font-family:var(--font-display); font-size:2.8rem; font-weight:800; color:var(--white); margin-bottom:4px; line-height:1; }
-    .price-from { font-size:0.82rem; color:var(--gray-500); margin-bottom:28px; }
-    .price-features { list-style:none; text-align:left; margin-bottom:28px; }
-    .price-features li { font-size:0.88rem; color:var(--gray-300); padding:8px 0; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px; }
-    .price-features li::before { content:'✓'; color:var(--accent-light); font-weight:700; font-size:0.8rem; }
-
-    .cta-section { background:linear-gradient(135deg, #04120c, #071a10); border-top:1px solid rgba(16,185,129,0.15); border-bottom:1px solid rgba(16,185,129,0.15); }
-    .cta-inner { text-align:center; padding:80px 0; }
-    .cta-inner h2 { margin-bottom:16px; }
-    .cta-inner p { max-width:500px; margin:0 auto 36px; }
-    .cta-actions { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
-
-    @media (max-width:900px) {
-      .service-hero-inner { grid-template-columns:1fr; gap:40px; }
-      .hero-visual { display:none; }
-      .services-grid { grid-template-columns:1fr; }
-      .process-steps { grid-template-columns:repeat(2,1fr); gap:32px; }
-      .process-steps::before { display:none; }
-      .pricing-grid { grid-template-columns:1fr; }
-      .price-card.popular { transform:scale(1); }
-      .price-card.popular:hover { transform:translateY(-4px); }
-    }
-
-    @media (max-width:768px) {
-      .service-hero { min-height:auto; padding-bottom:60px; overflow:hidden; }
-      .service-hero-inner { padding:48px 0 0; }
-      .hero-ctas { flex-direction:column; }
-      .hero-ctas .btn { width:100%; justify-content:center; }
-      .process-steps { grid-template-columns:1fr; }
-      .terminal-deco { display:none; }
-      .hero-deco-circle.c1 { width:280px; height:280px; right:-60px; top:-60px; }
-      .hero-deco-circle.c2 { width:160px; height:160px; }
-    }
-
-    @media (max-width:480px) {
-      .svc-card { padding:24px; }
-      .price-card { padding:28px 20px; }
+    .hero-stats-row { overflow: visible !important; }
+    .stat-box { overflow: visible !important; min-width: 0; }
+    .stat-num { 
+      overflow: visible !important; 
+      white-space: nowrap; 
+      padding-right: 8px; 
+      font-size: clamp(24px, 3vw, 44px) !important;
     }
   </style>
 </head>
+
 <body>
-  <!-- Loading Screen -->
-  <div id="loading-screen">
-    <div class="loading-logo">Hello</div>
-  </div>
 
-  <div class="noise"></div>
+  <div class="page-transition" id="pageTransition"></div>
 
-  <nav class="navbar" id="navbar">
-    <div class="nav-inner">
-      <a class="nav-logo" href="index.html" onclick="navigateBack(event)">Hell<span>o</span></a>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="index.html" onclick="navigateBack(event)">← Zurück zur Startseite</a></li>
-        <li><a href="#leistungen" onclick="closeMenu()">Leistungen</a></li>
-        <li><a href="#prozess" onclick="closeMenu()">Prozess</a></li>
-        <li><a href="#preise" onclick="closeMenu()">Preise</a></li>
-        <li><a href="#kontakt" class="nav-cta" onclick="closeMenu()">Beratung anfragen</a></li>
-      </ul>
-      <button class="nav-hamburger" id="hamburger" aria-label="Menü öffnen" onclick="toggleMenu()">
-        <span></span><span></span><span></span>
-      </button>
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-logo">NEXGROUP</a>
+      <div class="nav-right">
+        <div class="nav-links">
+          <a href="index.html#about">Über uns</a>
+          <a href="index.html#services">Services</a>
+        </div>
+        <a href="index.html#contact" class="btn btn-black btn-nav">Kontakt</a>
+      </div>
     </div>
   </nav>
 
-  <!-- Hero -->
-  <section class="service-hero">
-    <div class="hero-deco-circle c1"></div>
-    <div class="hero-deco-circle c2"></div>
-    <div class="hero-grid-lines"></div>
+  <header class="page-hero">
     <div class="container">
-      <div class="service-hero-inner">
-        <div class="reveal">
-          <div class="hero-badge">IT Dienstleistungen</div>
-          <h1>Digitale Zukunft für Ihr <em>Unternehmen</em></h1>
-          <p>[FIRMENNAME] IT begleitet Sie bei der digitalen Transformation — von der Netzwerkinfrastruktur bis zum ganzheitlichen IT-Support. Verlässlich, skalierbar und zukunftssicher.</p>
-          <div class="hero-ctas">
-            <a href="#kontakt" class="btn btn-primary">
-              Beratung anfragen
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-            </a>
-            <a href="#kontakt" class="btn btn-secondary">Preise anfragen</a>
+      <a href="index.html" class="back-link reveal">← Zurück zur Übersicht</a>
+      <span class="section-label reveal" style="transition-delay:0.1s;">DIVISION: IT DIENSTLEISTUNGEN</span>
+      <h1 class="t-h1 reveal" style="transition-delay:0.2s;">Digitale Sicherheit skaliert.</h1>
+      <p class="page-hero-desc reveal" style="transition-delay:0.3s;">Infrastruktur-Lösungen für das moderne
+        Unternehmen. Wir sichern Ihre Daten und optimieren Ihre digitalen Prozesse mit höchster Expertise.</p>
+      <div class="hero-actions reveal" style="transition-delay:0.4s;">
+        <a href="#leistungen" class="btn btn-black">Unsere Leistungen</a>
+        <a href="index.html#contact" class="btn btn-outline">Anfrage stellen</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-stats-bar reveal">
+    <div class="container" style="padding:0;">
+      <div class="hero-stats-row" style="border:none;">
+        <div class="stat-box">
+          <div class="stat-num">99.9%</div>
+          <div class="stat-label">Uptime</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">24/7</div>
+          <div class="stat-label">Monitoring</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">BSI</div>
+          <div class="stat-label">Standards</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">10ms</div>
+          <div class="stat-label">Response</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="s-cards-section" id="leistungen">
+    <div class="container">
+      <span class="section-label">UNSERE LEISTUNGEN</span>
+      <h2 class="t-h2">Umfassende IT-Infrastruktur</h2>
+
+      <div class="s-cards-grid">
+        <div class="s-card reveal">
+          <svg class="s-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+            <line x1="8" y1="21" x2="16" y2="21"></line>
+            <line x1="12" y1="17" x2="12" y2="21"></line>
+          </svg>
+          <h3>Managed IT</h3>
+          <p>Rundum-Betreuung Ihrer IT-Systeme. Wir übernehmen den Betrieb, damit Sie sich auf Ihr Geschäft
+            konzentrieren können.</p>
+          <div class="s-card-list">
+            <div class="s-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg> Patchmanagement</div>
+            <div class="s-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg> Support Desk</div>
+            <div class="s-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg> Asset Management</div>
           </div>
         </div>
-        <div class="hero-visual reveal" style="transition-delay:0.2s">
-          <div class="hero-visual-card">
-            <div class="terminal-window">
-              <div class="terminal-titlebar">
-                <div class="terminal-dot red"></div>
-                <div class="terminal-dot yellow"></div>
-                <div class="terminal-dot green"></div>
-              </div>
-              <div class="terminal-body">
-                <span class="t-green">intexo@server</span><span class="t-gray">:~$</span> ./deploy.sh<br>
-                <span class="t-gray">▶ Verbindung hergestellt...</span><br>
-                <span class="t-green">✔ Netzwerk konfiguriert</span><br>
-                <span class="t-green">✔ Server gesichert (SSL)</span><br>
-                <span class="t-green">✔ Backup erstellt</span><br>
-                <span class="t-gray">▶ System bereit</span> <span class="cursor"></span>
-              </div>
-            </div>
-            <div class="hero-visual-stats">
-              <div class="mini-stat"><div class="mini-stat-num">200+</div><div class="mini-stat-label">Kunden betreut</div></div>
-              <div class="mini-stat"><div class="mini-stat-num">99,9%</div><div class="mini-stat-label">Uptime SLA</div></div>
-              <div class="mini-stat"><div class="mini-stat-num">2h</div><div class="mini-stat-label">Reaktionszeit</div></div>
-              <div class="mini-stat"><div class="mini-stat-num">DSGVO</div><div class="mini-stat-label">konform</div></div>
-            </div>
+        <div class="s-card reveal" style="transition-delay:0.1s;">
+          <svg class="s-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          <h3>IT-Sicherheit</h3>
+          <p>Prävention vor Cybergefahren durch modernste Sicherheitsarchitekturen und regelmäßige Audits.</p>
+          <div class="s-card-list">
+            <div class="s-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg> Endpoint Protection</div>
+            <div class="s-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg> SIEM & SOC</div>
+            <div class="s-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg> Awareness-Trainings</div>
+          </div>
+        </div>
+        <div class="s-card reveal">
+          <svg class="s-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          <h3>Cloud & Backup</h3>
+          <p>Desaster Recovery und hochverfügbare Cloud-Infrastrukturen für maximale Datensicherheit.</p>
+          <div class="s-card-list">
+            <div class="s-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg> Offsite-Backups</div>
+            <div class="s-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg> Hybrid Cloud</div>
+            <div class="s-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg> MS 365 Backup</div>
+          </div>
+        </div>
+        <div class="s-card reveal" style="transition-delay:0.1s;">
+          <svg class="s-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+          </svg>
+          <h3>Netzwerktechnik</h3>
+          <p>Performante Vernetzung Ihrer Standorte durch professionelle WLAN- und LAN-Konzepte.</p>
+          <div class="s-card-list">
+            <div class="s-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg> SD-WAN</div>
+            <div class="s-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg> WiFi 6 Ausbau</div>
+            <div class="s-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg> Firewall Services</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Leistungen -->
-  <section class="section" id="leistungen" style="background:var(--bg-secondary);border-top:1px solid var(--border);">
+  <section class="s-process-section">
     <div class="container">
-      <div class="text-center reveal">
-        <div class="section-label">Unsere Leistungen</div>
-        <h2 class="section-title">IT-Lösungen aus einer Hand</h2>
-        <p class="section-subtitle">Von der Infrastruktur bis zur Cloud — wir bieten maßgeschneiderte IT-Dienstleistungen für KMUs und Konzerne.</p>
-      </div>
-      <div class="services-grid">
-        <div class="svc-card reveal">
-          <div class="svc-icon">🌐</div>
-          <h3>Netzwerkinfrastruktur</h3>
-          <p style="font-size:0.9rem;color:var(--gray-500);margin-bottom:16px;">Planung, Aufbau und Betrieb moderner Netzwerklösungen für Unternehmen jeder Größe.</p>
-          <ul class="checklist">
-            <li>LAN/WAN-Planung & Installation</li>
-            <li>WLAN-Ausleuchtung & Optimierung</li>
-            <li>Firewall & VPN-Konfiguration</li>
-            <li>SD-WAN & Cloud-Networking</li>
-            <li>Netzwerk-Monitoring 24/7</li>
-          </ul>
+      <span class="section-label">DER ABLAUF</span>
+      <h2 class="t-h2">Digitale Transformation in 4 Schritten</h2>
+
+      <div class="process-grid">
+        <div class="process-item reveal">
+          <div class="p-num">01</div>
+          <h4 class="p-title">Audit</h4>
+          <p class="p-desc">IST-Zustand Ihrer IT-Infrastruktur und Identifikation von Schwachstellen.</p>
         </div>
-        <div class="svc-card reveal" style="transition-delay:0.1s">
-          <div class="svc-icon">🛡️</div>
-          <h3>IT-Sicherheit & DSGVO</h3>
-          <p style="font-size:0.9rem;color:var(--gray-500);margin-bottom:16px;">Umfassender Schutz für Ihre Unternehmensdaten — rechtskonform und zukunftssicher.</p>
-          <ul class="checklist">
-            <li>Penetrationstesting & Audits</li>
-            <li>Endpoint-Security & EDR</li>
-            <li>DSGVO-Beratung & Compliance</li>
-            <li>Verschlüsselung & Datenschutz</li>
-            <li>Security Awareness Training</li>
-          </ul>
+        <div class="process-item reveal" style="transition-delay:0.1s;">
+          <div class="p-num">02</div>
+          <h4 class="p-title">Konzept</h4>
+          <p class="p-desc">Entwicklung einer zukunftssicheren IT-Strategie nach BSI-Grundschutz.</p>
         </div>
-        <div class="svc-card reveal" style="transition-delay:0.2s">
-          <div class="svc-icon">☁️</div>
-          <h3>Cloud & Server</h3>
-          <p style="font-size:0.9rem;color:var(--gray-500);margin-bottom:16px;">Migration, Betrieb und Optimierung Ihrer Cloud-Infrastruktur — skalierbar und kosteneffizient.</p>
-          <ul class="checklist">
-            <li>Cloud-Migration (Azure, AWS, GCP)</li>
-            <li>Managed Server & Hosting</li>
-            <li>Backup & Disaster Recovery</li>
-            <li>Virtualisierung (Hyper-V, VMware)</li>
-            <li>Datenbankmanagement</li>
-          </ul>
+        <div class="process-item reveal" style="transition-delay:0.2s;">
+          <div class="p-num">03</div>
+          <h4 class="p-title">Migration</h4>
+          <p class="p-desc">Schrittweise Implementierung neuer Systeme mit minimaler Downtime.</p>
         </div>
-        <div class="svc-card reveal" style="transition-delay:0.3s">
-          <div class="svc-icon">🔧</div>
-          <h3>IT-Support & Helpdesk</h3>
-          <p style="font-size:0.9rem;color:var(--gray-500);margin-bottom:16px;">Schneller und kompetenter Support für Ihre Mitarbeiter — remote oder vor Ort.</p>
-          <ul class="checklist">
-            <li>Remote-Support per Fernwartung</li>
-            <li>Vor-Ort-Service & Reparatur</li>
-            <li>Hardware-Beschaffung & Setup</li>
-            <li>Microsoft 365 & Google Workspace</li>
-            <li>IT-Onboarding für neue Mitarbeiter</li>
-          </ul>
+        <div class="process-item reveal" style="transition-delay:0.3s;">
+          <div class="p-num">04</div>
+          <h4 class="p-title">Helpdesk</h4>
+          <p class="p-desc">Dauerhafter Support und proaktive Wartung für störungsfreies Arbeiten.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Prozess -->
-  <section class="section" id="prozess" style="background:var(--bg-primary);">
+  <section class="cta-section">
     <div class="container">
-      <div class="text-center reveal">
-        <div class="section-label">Unser Prozess</div>
-        <h2 class="section-title">Wie wir arbeiten</h2>
-        <p class="section-subtitle">Strukturiert, transparent und partnerschaftlich — so entwickeln wir Ihre individuelle IT-Lösung.</p>
-      </div>
-      <div class="process-steps">
-        <div class="process-step reveal">
-          <div class="step-num">1</div>
-          <div class="step-title">IT-Analyse</div>
-          <p class="step-desc">Kostenlose Bestandsaufnahme Ihrer aktuellen IT-Infrastruktur und Identifikation von Schwachstellen.</p>
-        </div>
-        <div class="process-step reveal" style="transition-delay:0.15s">
-          <div class="step-num">2</div>
-          <div class="step-title">Konzeption</div>
-          <p class="step-desc">Maßgeschneidertes IT-Konzept mit klarer Roadmap, Zeitplan und transparenter Kostenkalkulation.</p>
-        </div>
-        <div class="process-step reveal" style="transition-delay:0.3s">
-          <div class="step-num">3</div>
-          <div class="step-title">Implementierung</div>
-          <p class="step-desc">Fachgerechte Umsetzung durch zertifizierte IT-Experten — mit minimalem Produktionsausfall.</p>
-        </div>
-        <div class="process-step reveal" style="transition-delay:0.45s">
-          <div class="step-num">4</div>
-          <div class="step-title">Betrieb & Support</div>
-          <p class="step-desc">Kontinuierliche Überwachung, proaktive Wartung und schneller Support im laufenden Betrieb.</p>
-        </div>
+      <h2 class="t-h2" style="color:#fff;">Denken Sie digital sicher?</h2>
+      <p>Lassen Sie uns Ihre IT auf das nächste Level heben.</p>
+      <div class="cta-actions">
+        <a href="index.html#contact" class="btn btn-black" style="background:#fff; color:#000;">Jetzt anfragen</a>
+        <a href="tel:+49000000000" class="btn btn-outline" style="border-color:#fff; color:#fff;">Experten sprechen</a>
       </div>
     </div>
   </section>
 
-  <!-- Preise Alternative -->
-  <section class="section" id="preise" style="background:var(--bg-secondary);border-top:1px solid var(--border);">
-    <div class="container">
-      <div class="text-center reveal">
-        <div class="section-label">Preisübersicht</div>
-        <h2 class="section-title">Individuelle Angebote</h2>
-        <p class="section-subtitle">Alle Preise auf Anfrage — kontaktieren Sie uns für ein individuelles Angebot.</p>
-        <div style="margin-top:32px;">
-          <a href="#kontakt" class="btn btn-primary">Angebot anfragen</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="cta-section" id="kontakt">
-    <div class="container">
-      <div class="cta-inner reveal">
-        <div class="section-label" style="justify-content:center;margin:0 auto 20px;">Kostenlose Erstberatung</div>
-        <h2>Starten Sie Ihre digitale Transformation</h2>
-        <p>Fordern Sie jetzt Ihre kostenlose IT-Analyse an. Unsere Experten melden sich innerhalb von 24 Stunden.</p>
-        <div class="cta-actions">
-          <a href="mailto:[info@firma.de]" class="btn btn-primary">📧 Beratung anfragen</a>
-          <a href="tel:[+490000000000]" class="btn btn-secondary">📞 [+49 000 / 000000-0]</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
+  <footer>
     <div class="container">
       <div class="footer-grid">
-        <div class="footer-brand">
-          <a class="nav-logo" href="index.html">Hell<span>o</span></a>
-          <p>Professionelle Dienstleistungen in den Bereichen Fahrzeugaufbereitung, Industrieservice und IT — zuverlässig, qualitätsbewusst und deutschlandweit.</p>
-          <div class="social-links">
-            <a href="#" aria-label="Facebook">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4v-8.5z"/></svg>
-            </a>
-            <a href="#" aria-label="Instagram">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-            </a>
-            <a href="#" aria-label="LinkedIn">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-            </a>
-          </div>
+        <div class="f-brand">
+          <a href="index.html" class="f-logo">NEXGROUP</a>
+          <p class="f-desc">Präzision und Qualität in allen Divisionen. Ihr Partner für professionelle Dienstleistungen.
+          </p>
         </div>
-        <div class="footer-col">
-          <h4>Navigation</h4>
-          <ul>
-            <li><a href="index.html#startseite">Startseite</a></li>
-            <li><a href="index.html#geschichte">Geschichte</a></li>
-            <li><a href="index.html#kontakt">Kontakt</a></li>
+        <div>
+          <h4 class="f-title">Navigation</h4>
+          <ul class="f-links">
+            <li><a href="index.html#about">Über uns</a></li>
+            <li><a href="index.html#services">Services</a></li>
+            <li><a href="index.html#contact">Kontakt</a></li>
           </ul>
         </div>
-        <div class="footer-col">
-          <h4>Services</h4>
-          <ul>
+        <div>
+          <h4 class="f-title">Services</h4>
+          <ul class="f-links">
             <li><a href="autoaufbereitung.html">Autoaufbereitung</a></li>
             <li><a href="industrieservice.html">Industrieservice</a></li>
+            <li><a href="index.html#contact">Objekträumung</a></li>
             <li><a href="it-dienstleistungen.html">IT Dienstleistungen</a></li>
           </ul>
         </div>
-        <div class="footer-col">
-          <h4>Kontakt</h4>
-          <ul>
-            <li>[Straße, Hausnummer]</li>
-            <li>[PLZ Stadt]</li>
-            <li style="margin-top:8px"><a href="tel:+490000000000">[+49 000 / 000000-0]</a></li>
-            <li><a href="mailto:info@firma.de">[info@firma.de]</a></li>
+        <div>
+          <h4 class="f-title">Rechtliches</h4>
+          <ul class="f-links">
+            <li><a href="impressum.html">Impressum</a></li>
+            <li><a href="datenschutz.html">Datenschutz</a></li>
+            <li><a href="datenschutz.html">AGB</a></li>
+            <li><a href="datenschutz.html">Cookies</a></li>
           </ul>
         </div>
       </div>
-      <div class="footer-divider"></div>
       <div class="footer-bottom">
-        <p>© 2026 INTEXO. Alle Rechte vorbehalten.</p>
+        <p>© 2026 NexGroup. Alle Rechte vorbehalten.</p>
       </div>
     </div>
   </footer>
 
   <script>
-    window.addEventListener('scroll', () => {
-      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+    window.addEventListener('load', () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+          }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     });
-    function toggleMenu() { document.getElementById('navLinks').classList.toggle('open'); document.getElementById('hamburger').classList.toggle('open'); }
-    function closeMenu() { document.getElementById('navLinks').classList.remove('open'); document.getElementById('hamburger').classList.remove('open'); }
-    document.addEventListener('click', (e) => {
-      const navLinks = document.getElementById('navLinks');
-      const navbar = document.getElementById('navbar');
-      if (navLinks && navLinks.classList.contains('open') && !navbar.contains(e.target)) {
-        closeMenu();
-      }
-    });
-    function navigateBack(e) {
-      e.preventDefault();
-      document.body.classList.add('page-exit');
-      setTimeout(() => { window.location.href = 'index.html'; }, 300);
-    }
-    const revealEls = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
-      });
-    }, { threshold: 0.1 });
-    revealEls.forEach(el => observer.observe(el));
 
-    // Loading screen logic
-    window.addEventListener('DOMContentLoaded', () => {
-      const loadScreen = document.getElementById('loading-screen');
-      if (loadScreen) {
-        if (!sessionStorage.getItem('intexo_loaded')) {
+    document.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (href && href.endsWith('.html') && !href.startsWith('#')) {
+          e.preventDefault();
+          document.getElementById('pageTransition').classList.add('active');
           setTimeout(() => {
-            loadScreen.classList.add('fade-out');
-            sessionStorage.setItem('intexo_loaded', 'true');
-          }, 2500);
-        } else {
-          loadScreen.style.display = 'none';
+            window.location.href = href;
+          }, 400);
         }
-      }
+      });
     });
   </script>
 </body>
+
 </html>

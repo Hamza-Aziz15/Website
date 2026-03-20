@@ -2,591 +2,183 @@
 <html lang="de">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>[FIRMENNAME] — Professionelle Unternehmensdienstleistungen</title>
-  <meta name="description"
-    content="[FIRMENNAME] bietet erstklassige Dienstleistungen in den Bereichen Autoaufbereitung, Industrieservice und IT Dienstleistungen." />
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    /* ── Landing-specific styles ── */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      position: relative;
-      background: var(--gradient-hero);
-      overflow: hidden;
-      padding-top: 70px;
-    }
-
-    .hero-bg-grid {
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-      background-size: 60px 60px;
-      mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%);
-    }
-
-    .hero-glow {
-      position: absolute;
-      width: 700px;
-      height: 700px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(37, 99, 235, 0.12) 0%, transparent 70%);
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      padding: 80px 0 60px;
-      text-align: center;
-    }
-
-    .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--accent-light);
-      border: 1px solid rgba(59, 130, 246, 0.25);
-      background: rgba(37, 99, 235, 0.06);
-      padding: 7px 18px;
-      border-radius: 100px;
-      margin-bottom: 28px;
-    }
-
-    .hero-eyebrow::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--accent-light);
-      animation: pulse-dot 2s infinite;
-    }
-
-    @keyframes pulse-dot {
-
-      0%,
-      100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-
-      50% {
-        opacity: 0.5;
-        transform: scale(0.8);
-      }
-    }
-
-    .hero h1 {
-      margin-bottom: 24px;
-      color: var(--white);
-    }
-
-    .hero h1 .accent {
-      color: var(--accent-light);
-    }
-
-    .hero-desc {
-      font-size: 1.15rem;
-      max-width: 580px;
-      margin: 0 auto 48px;
-      color: var(--gray-500);
-      line-height: 1.8;
-    }
-
-    .hero-stats {
-      display: flex;
-      justify-content: center;
-      gap: 48px;
-      border-top: 1px solid var(--border);
-      padding-top: 40px;
-      margin-top: 56px;
-    }
-
-    .stat {
-      text-align: center;
-    }
-
-    .stat-number {
-      font-family: var(--font-display);
-      font-size: 2rem;
-      font-weight: 800;
-      color: var(--white);
-      line-height: 1;
-    }
-
-    .stat-label {
-      font-size: 0.8rem;
-      color: var(--gray-500);
-      margin-top: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    /* ── Service Selection ── */
-    .services-section {
-      background: var(--bg-secondary);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .service-cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 28px;
-      margin-top: 56px;
-    }
-
-    .service-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      padding: 40px 32px;
-      cursor: pointer;
-      text-decoration: none;
-      display: block;
-      transition: var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .service-card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: var(--radius-xl);
-      border: 1px solid transparent;
-      transition: var(--transition);
-    }
-
-    .service-card:hover {
-      transform: translateY(-8px);
-      background: var(--bg-card-hover);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), var(--shadow-glow);
-    }
-
-    .service-card:hover::after {
-      border-color: rgba(37, 99, 235, 0.3);
-    }
-
-    .service-card-icon {
-      width: 64px;
-      height: 64px;
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      margin-bottom: 24px;
-      background: var(--accent-subtle);
-      border: 1px solid rgba(37, 99, 235, 0.2);
-      transition: var(--transition);
-    }
-
-    .service-card:hover .service-card-icon {
-      background: rgba(37, 99, 235, 0.15);
-      transform: scale(1.05);
-    }
-
-    .service-card h3 {
-      font-size: 1.3rem;
-      margin-bottom: 12px;
-      color: var(--white);
-    }
-
-    .service-card p {
-      font-size: 0.9rem;
-      color: var(--gray-500);
-      line-height: 1.7;
-    }
-
-    .service-card-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 28px;
-      padding-top: 24px;
-      border-top: 1px solid var(--border);
-    }
-
-    .service-link-text {
-      font-size: 0.88rem;
-      font-weight: 600;
-      color: var(--accent-light);
-    }
-
-    .service-arrow {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: var(--accent-subtle);
-      border: 1px solid rgba(37, 99, 235, 0.25);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: var(--transition);
-    }
-
-    .service-card:hover .service-arrow {
-      background: var(--accent);
-      transform: translateX(4px);
-    }
-
-    .service-arrow svg {
-      width: 14px;
-      height: 14px;
-      fill: none;
-      stroke: var(--accent-light);
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      transition: var(--transition);
-    }
-
-    .service-card:hover .service-arrow svg {
-      stroke: white;
-    }
-
-    /* ── Trust section ── */
-    .trust-section {
-      text-align: center;
-      padding: 80px 0;
-    }
-
-    .trust-badges {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 48px;
-      flex-wrap: wrap;
-      margin-top: 40px;
-    }
-
-    .trust-badge {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 16px 24px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      transition: var(--transition);
-    }
-
-    .trust-badge:hover {
-      border-color: var(--border-hover);
-      transform: translateY(-2px);
-    }
-
-    .trust-badge-icon {
-      font-size: 1.5rem;
-    }
-
-    .trust-badge-text {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--gray-300);
-    }
-
-    /* ── About / Geschichte layout ── */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-
-    .values-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-
-    @media (max-width: 900px) {
-      .about-grid {
-        grid-template-columns: 1fr;
-        gap: 48px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .service-cards {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-stats {
-        gap: 24px;
-        flex-wrap: wrap;
-      }
-
-      .hero-desc {
-        font-size: 1rem;
-      }
-
-      .trust-badges {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-        padding: 0;
-      }
-
-      .trust-badge {
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
-        padding: 16px;
-        border-radius: 12px;
-        background: rgba(37, 99, 235, 0.1);
-        border: 1px solid rgba(37, 99, 235, 0.3);
-        gap: 8px;
-      }
-
-      .trust-badge:last-child:nth-child(odd) {
-        grid-column: 1 / -1;
-      }
-
-      .trust-badge-icon {
-        font-size: 1.8rem;
-        margin-bottom: 4px;
-      }
-
-      .trust-badge-text {
-        font-size: 13px;
-        font-weight: 500;
-        color: var(--white);
-      }
-
-      .about-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
-
-      .hero-content {
-        padding: 60px 0 40px;
-      }
-
-      .values-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-auto-rows: 1fr;
-        gap: 12px;
-        align-items: stretch;
-      }
-
-      .values-grid .card {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        padding: 16px;
-        margin-top: 0 !important;
-      }
-
-      .values-grid .card h4 {
-        font-size: 15px !important;
-        font-weight: bold;
-      }
-
-      .values-grid .card p {
-        font-size: 13px !important;
-        color: var(--gray-500) !important;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .service-cards {
-        gap: 16px;
-      }
-
-      .service-card {
-        padding: 28px 20px;
-      }
-
-      .hero-eyebrow {
-        font-size: 0.72rem;
-      }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexGroup | Qualität seit 2008</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <!-- Loading Screen -->
-  <div id="loading-screen">
-    <div class="loading-logo">Hello</div>
+
+  <!-- PAGE TRANSITION -->
+  <div class="page-transition" id="pageTransition"></div>
+
+  <!-- LOADER -->
+  <div class="loader-wrapper" id="loader">
+    <div class="spinner"></div>
   </div>
 
-  <div class="noise"></div>
-
-  <!-- Navbar -->
-  <nav class="navbar" id="navbar">
-    <div class="nav-inner">
-      <a class="nav-logo" href="index.html">Hell<span>o</span></a>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#startseite" class="active" onclick="closeMenu()">Startseite</a></li>
-        <li><a href="#geschichte" onclick="closeMenu()">Geschichte</a></li>
-        <li><a href="#kontakt" onclick="closeMenu()">Kontakt</a></li>
-        <li><a href="#services" class="nav-cta" onclick="closeMenu()">Services</a></li>
-      </ul>
-      <button class="nav-hamburger" id="hamburger" aria-label="Menü öffnen" onclick="toggleMenu()">
-        <span></span><span></span><span></span>
-      </button>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-logo">NEXGROUP</a>
+      <div class="nav-right">
+        <div class="nav-links">
+          <a href="#about">Über uns</a>
+          <a href="#services">Services</a>
+        </div>
+        <a href="#contact" class="btn btn-black btn-nav">Kontakt</a>
+      </div>
     </div>
   </nav>
 
-  <!-- Hero -->
-  <section class="hero" id="startseite">
-    <div class="hero-bg-grid"></div>
-    <div class="hero-glow"></div>
-    <div class="container">
-      <div class="hero-content reveal">
-        <div class="hero-eyebrow">Deutschlandweit verfügbar</div>
-        <h1>Exzellenz in jedem<br><span class="accent">Dienstleistungsbereich</span></h1>
-        <p class="hero-desc">[FIRMENNAME] steht für kompromisslose Qualität und Professionalität. Ob
-          Fahrzeugaufbereitung, Industrieservice oder digitale Transformation — wir liefern Ergebnisse, die überzeugen.
-        </p>
-        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
-          <a href="#services" class="btn btn-primary">Unsere Services entdecken
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 8h10M9 4l4 4-4 4" />
-            </svg>
-          </a>
-          <a href="#kontakt" class="btn btn-secondary">Kontakt aufnehmen</a>
+
+
+  <!-- HERO SECTION -->
+  <header class="hero">
+    <div class="container" style="padding:0;">
+      <div class="hero-grid">
+        <!-- LEFT 40% -->
+        <div class="hero-col hero-l reveal">
+          <span class="section-label">DEUTSCHLANDWEIT · SEIT 2008</span>
+          <h1 class="t-h1">Wir lösen,<br>was andere<br>nicht können.</h1>
+          <p class="hero-desc">Professionelle Lösungen für anspruchsvolle Herausforderungen in Industrie, IT und
+            Service.</p>
+          <div class="hero-actions">
+            <a href="#services" class="btn btn-black">Services entdecken</a>
+            <a href="#contact" class="btn btn-outline">Kontakt aufnehmen</a>
+          </div>
         </div>
 
-        <div class="hero-stats">
-          <div class="stat">
-            <div class="stat-number">1.200+</div>
-            <div class="stat-label">Zufriedene Kunden</div>
-          </div>
-          <div class="stat">
-            <div class="stat-number">98%</div>
-            <div class="stat-label">Kundenzufriedenheit</div>
-          </div>
-          <div class="stat">
-            <div class="stat-number">8+</div>
-            <div class="stat-label">Jahre Erfahrung</div>
-          </div>
-          <div class="stat">
-            <div class="stat-number">3</div>
-            <div class="stat-label">Servicebereiche</div>
+        <!-- MIDDLE 35% -->
+        <div class="hero-col hero-m reveal" style="transition-delay:0.2s;">
+          <div class="hero-huge-num">01</div>
+          <h3 class="hero-mid-title">Professionelle Dienstleistungen<br>für höchste Ansprüche.</h3>
+          <p class="hero-mid-desc" style="max-width:280px; font-size:13px; color:#888;">Gegründet in Deutschland, tätig
+            in der gesamten DACH-Region. Wir setzen Standards in Präzision und Verlässlichkeit.</p>
+          <div class="hero-mid-line"></div>
+          <div class="hero-stats-mini">
+            <div class="stat-mini-item">
+              <div class="num">500+</div>
+              <div class="label">Zufriedene Kunden</div>
+            </div>
+            <div class="stat-mini-item">
+              <div class="num">4</div>
+              <div class="label">Divisionen</div>
+            </div>
+            <div class="stat-mini-item">
+              <div class="num">15+</div>
+              <div class="label">Jahre Erfahrung</div>
+            </div>
           </div>
         </div>
+
+        <!-- RIGHT 25% -->
+        <div class="hero-col hero-r reveal" style="transition-delay:0.4s;">
+          <div class="hero-dark-strip">
+            <div class="hero-rotated">NEXGROUP — QUALITÄT SEIT 2008</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HERO STATS ROW -->
+      <div class="hero-stats-row reveal" style="transition-delay:0.6s;">
+        <div class="stat-box">
+          <div class="stat-num">2008</div>
+          <div class="stat-label">Gegründet</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Kundenzufriedenheit</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">45</div>
+          <div class="stat-label">Fachkräfte</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">1.000+</div>
+          <div class="stat-label">Projekte</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- SERVICES SECTION -->
+  <section class="services-section" id="services">
+    <div class="container">
+      <span class="section-label">WAS WIR TUN.</span>
+      <h2 class="t-h2">Unsere Dienstleistungen</h2>
+
+      <div class="manifesto-list">
+        <!-- 01 -->
+        <a href="autoaufbereitung.html" class="manifesto-row reveal">
+          <div class="m-num">01</div>
+          <div class="m-content">
+            <h3 class="m-title">Autoaufbereitung</h3>
+            <p class="m-desc">Premium-Fahrzeugpflege für den Werterhalt Ihrer Mobilität.</p>
+          </div>
+          <div class="m-link">→</div>
+        </a>
+        <!-- 02 -->
+        <a href="industrieservice.html" class="manifesto-row reveal">
+          <div class="m-num">02</div>
+          <div class="m-content">
+            <h3 class="m-title">Industrieservice</h3>
+            <p class="m-desc">Wartung, Reinigung und Facility Management für reibungslose Abläufe.</p>
+          </div>
+          <div class="m-link">→</div>
+        </a>
+        <!-- 03 -->
+        <a href="#contact" class="manifesto-row reveal">
+          <div class="m-num">03</div>
+          <div class="m-content">
+            <h3 class="m-title">Objekträumung</h3>
+            <p class="m-desc">Professionelle Beräumung und Reinigung von Gewerbe- und Privatimmobilien.</p>
+          </div>
+          <div class="m-link">→</div>
+        </a>
+        <!-- 04 -->
+        <a href="it-dienstleistungen.html" class="manifesto-row reveal">
+          <div class="m-num">04</div>
+          <div class="m-content">
+            <h3 class="m-title">IT Dienstleistungen</h3>
+            <p class="m-desc">Skalierbare Softwarelösungen und Infrastruktur-Expertise.</p>
+          </div>
+          <div class="m-link">→</div>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- Services -->
-  <section class="services-section section" id="services">
-    <div class="container">
-      <div class="text-center reveal">
-        <div class="section-label">Was wir anbieten</div>
-        <h2 class="section-title">Unsere Dienstleistungsbereiche</h2>
-        <p class="section-subtitle">Wählen Sie Ihren gewünschten Servicebereich und erfahren Sie, wie [FIRMENNAME] Ihnen
-          helfen kann.</p>
-      </div>
-
-      <div class="service-cards">
-        <a href="autoaufbereitung.html" class="service-card reveal"
-          onclick="navigateTo(event, 'autoaufbereitung.html')">
-          <div class="service-card-icon">🚗</div>
-          <h3>Autoaufbereitung</h3>
-          <p>Von der schonenden Außenreinigung bis zur perfekten Innenaufbereitung — wir bringen Ihr Fahrzeug in
-            Bestform.</p>
-          <div class="service-card-footer">
-            <span class="service-link-text">Mehr erfahren</span>
-            <div class="service-arrow">
-              <svg viewBox="0 0 16 16">
-                <path d="M3 8h10M9 4l4 4-4 4" />
-              </svg>
-            </div>
-          </div>
-        </a>
-
-        <a href="industrieservice.html" class="service-card reveal" style="transition-delay:0.1s"
-          onclick="navigateTo(event, 'industrieservice.html')">
-          <div class="service-card-icon">🏭</div>
-          <h3>Industrieservice</h3>
-          <p>Professionelle Industriereinigung und Wartungsservice für Produktionsanlagen, Maschinen und
-            Betriebsgebäude.</p>
-          <div class="service-card-footer">
-            <span class="service-link-text">Mehr erfahren</span>
-            <div class="service-arrow">
-              <svg viewBox="0 0 16 16">
-                <path d="M3 8h10M9 4l4 4-4 4" />
-              </svg>
-            </div>
-          </div>
-        </a>
-
-        <a href="it-dienstleistungen.html" class="service-card reveal" style="transition-delay:0.2s"
-          onclick="navigateTo(event, 'it-dienstleistungen.html')">
-          <div class="service-card-icon">💻</div>
-          <h3>IT Dienstleistungen</h3>
-          <p>Netzwerkinfrastruktur, IT-Support und digitale Transformation — wir begleiten Ihr Unternehmen in die
-            Zukunft.</p>
-          <div class="service-card-footer">
-            <span class="service-link-text">Mehr erfahren</span>
-            <div class="service-arrow">
-              <svg viewBox="0 0 16 16">
-                <path d="M3 8h10M9 4l4 4-4 4" />
-              </svg>
-            </div>
-          </div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Geschichte / About -->
-  <section class="section" id="geschichte" style="background:var(--bg-primary);">
+  <!-- ABOUT SECTION -->
+  <section class="about-section" id="about">
     <div class="container">
       <div class="about-grid">
-        <div class="reveal">
-          <div class="section-label">Über uns</div>
-          <h2 class="section-title">Unsere Geschichte</h2>
-          <div class="divider"></div>
-          <p style="margin-bottom:20px;">[FIRMENNAME] wurde 2016 mit einer klaren Vision gegründet: erstklassige
-            Dienstleistungen zu liefern, die echten Mehrwert schaffen. Was als kleines Autoaufbereitungsunternehmen
-            begann, wuchs schnell zu einem vielseitigen Dienstleistungsunternehmen heran.</p>
-          <p style="margin-bottom:32px;">Heute vertrauen uns über 1.200 Kunden aus ganz Deutschland — von Privatpersonen
-            bis hin zu Industriekonzernen. Unser Team aus über 40 Fachkräften arbeitet täglich daran, dieses Vertrauen
-            zu rechtfertigen.</p>
-          <a href="#services" class="btn btn-primary">Unsere Leistungen ansehen</a>
+        <!-- LEFT -->
+        <div class="about-l reveal">
+          <h2 class="t-h2" style="font-size: clamp(28px, 3vw, 44px); font-weight: 800; margin-bottom: 32px;">Seit
+            2008.<br>Verlässlich.<br>Deutschlandweit.</h2>
+          <div class="about-line"></div>
+          <a href="#contact" class="btn btn-black">Mehr erfahren</a>
         </div>
-        <div class="reveal" style="transition-delay:0.2s;">
-          <div class="values-grid">
-            <div class="card">
-              <div style="font-size:1.8rem;margin-bottom:12px;">🎯</div>
-              <h4 style="margin-bottom:8px;font-size:1rem;">Präzision</h4>
-              <p style="font-size:0.85rem;">Jede Aufgabe wird mit höchster Sorgfalt ausgeführt.</p>
+        <!-- RIGHT -->
+        <div class="about-r reveal" style="transition-delay:0.2s;">
+          <div class="about-subgrid">
+            <div class="video-placeholder">
+              <div class="play-btn">
+                <svg viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
             </div>
-            <div class="card" style="margin-top:24px;">
-              <div style="font-size:1.8rem;margin-bottom:12px;">🤝</div>
-              <h4 style="margin-bottom:8px;font-size:1rem;">Verlässlichkeit</h4>
-              <p style="font-size:0.85rem;">Auf uns können Sie sich jederzeit verlassen.</p>
-            </div>
-            <div class="card">
-              <div style="font-size:1.8rem;margin-bottom:12px;">🏆</div>
-              <h4 style="margin-bottom:8px;font-size:1rem;">Qualität</h4>
-              <p style="font-size:0.85rem;">Nur die besten Materialien und Methoden.</p>
-            </div>
-            <div class="card" style="margin-top:24px;">
-              <div style="font-size:1.8rem;margin-bottom:12px;">🚀</div>
-              <h4 style="margin-bottom:8px;font-size:1rem;">Innovation</h4>
-              <p style="font-size:0.85rem;">Wir setzen auf modernste Technologien.</p>
+            <div class="about-desc">
+              <p>Wir vereinen deutsche Ingenieurspräzision mit moderner Dienstleistungsmentalität. NexGroup steht für
+                Qualität, die man sieht und spürt.</p>
+              <div class="trust-points">
+                <div class="trust-point">Zertifizierte Fachkräfte</div>
+                <div class="trust-point">DACH-Region Abdeckung</div>
+                <div class="trust-point">ISO-Konforme Prozesse</div>
+              </div>
             </div>
           </div>
         </div>
@@ -594,170 +186,202 @@
     </div>
   </section>
 
-  <!-- Trust -->
-  <section class="trust-section" style="background:var(--bg-secondary);border-top:1px solid var(--border);">
+  <!-- WHY US SECTION -->
+  <section class="why-section">
     <div class="container">
-      <p class="section-label" style="justify-content:center;">Vertrauen & Güte</p>
-      <h2 class="section-title reveal" style="margin-bottom:8px;">Warum Kunden [FIRMENNAME] wählen</h2>
-      <div class="trust-badges reveal">
-        <div class="trust-badge"><span class="trust-badge-icon">✅</span><span
-            class="trust-badge-text">ISO-zertifiziert</span></div>
-        <div class="trust-badge"><span class="trust-badge-icon">⚡</span><span class="trust-badge-text">24h
-            Reaktionszeit</span></div>
-        <div class="trust-badge"><span class="trust-badge-icon">🛡️</span><span
-            class="trust-badge-text">Vollversichert</span></div>
-        <div class="trust-badge"><span class="trust-badge-icon">🌱</span><span
-            class="trust-badge-text">Umweltschonend</span></div>
-        <div class="trust-badge"><span class="trust-badge-icon">🏅</span><span
-            class="trust-badge-text">TÜV-geprüft</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Kontakt -->
-  <section class="section" id="kontakt" style="background:var(--bg-primary);">
-    <div class="container">
-      <div class="text-center reveal">
-        <div class="section-label">Kontakt</div>
-        <h2 class="section-title">Bereit loszulegen?</h2>
-        <p class="section-subtitle">Nehmen Sie jetzt Kontakt auf und erhalten Sie innerhalb von 24 Stunden ein
-          unverbindliches Angebot.</p>
-        <div style="display:flex;gap:16px;justify-content:center;margin-top:32px;flex-wrap:wrap;">
-          <a href="mailto:[info@firma.de]" class="btn btn-primary">📧 [info@firma.de]</a>
-          <a href="tel:[+490000000000]" class="btn btn-secondary">📞 [+49 000 / 000000-0]</a>
+      <div class="why-grid">
+        <div class="why-item reveal">
+          <h4>Erfahrung seit 2008</h4>
+          <p>Über 15 Jahre Expertise am Markt.</p>
+        </div>
+        <div class="why-item reveal" style="transition-delay:0.1s;">
+          <h4>Deutschlandweit</h4>
+          <p>Einsätze in der gesamten DACH-Region.</p>
+        </div>
+        <div class="why-item reveal" style="transition-delay:0.2s;">
+          <h4>Alle Bereiche</h4>
+          <p>4 spezialisierte Divisionen aus einer Hand.</p>
+        </div>
+        <div class="why-item reveal" style="transition-delay:0.3s;">
+          <h4>Qualität garantiert</h4>
+          <p>100% Kundenzufriedenheit als Standard.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="footer">
+  <!-- CONTACT SECTION -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <div class="contact-grid">
+        <!-- LEFT -->
+        <div class="contact-info reveal">
+          <div>
+            <span class="section-label">KONTAKT</span>
+            <h2 class="t-h2">Sprechen wir.</h2>
+            <p style="margin-top:16px; color:#888;">Haben Sie Fragen zu unseren Leistungen? Unser Team berät Sie gerne
+              unverbindlich.</p>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <div class="c-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path
+                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+              </svg>
+              <span>+49 000 / 000000-0</span>
+            </div>
+            <div class="c-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
+              <span>info@nexgroup.de</span>
+            </div>
+            <div class="c-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+              <span>Musterstraße 123, 12345 Stadt</span>
+            </div>
+          </div>
+        </div>
+        <!-- RIGHT -->
+        <div class="contact-card reveal" style="transition-delay:0.2s;">
+          <form id="contactForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label>NAME</label>
+                <input type="text" class="form-control" placeholder="Ihr Name" required>
+              </div>
+              <div class="form-group">
+                <label>EMAIL</label>
+                <input type="email" class="form-control" placeholder="mail@beispiel.de" required>
+              </div>
+            </div>
+            <div class="form-row" style="margin-top:16px;">
+              <div class="form-group">
+                <label>FIRMA</label>
+                <input type="text" class="form-control" placeholder="Unternehmen">
+              </div>
+              <div class="form-group">
+                <label>TELEFON</label>
+                <input type="tel" class="form-control" placeholder="+49 ...">
+              </div>
+            </div>
+            <div class="form-group" style="margin-top:16px;">
+              <label>ANFRAGE FÜR</label>
+              <select class="form-control">
+                <option>Autoaufbereitung</option>
+                <option>Industrieservice</option>
+                <option>Objekträumung</option>
+                <option>IT Dienstleistungen</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin-top:16px;">
+              <label>NACHRICHT</label>
+              <textarea class="form-control" placeholder="Wie können wir helfen?" style="min-height:100px;"></textarea>
+            </div>
+            <button type="submit" class="btn btn-black btn-submit" style="margin-top:24px; padding:14px;">Anfrage
+              senden</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
     <div class="container">
       <div class="footer-grid">
-        <div class="footer-brand">
-          <a class="nav-logo" href="index.html">Hell<span>o</span></a>
-          <p>Professionelle Dienstleistungen in den Bereichen Fahrzeugaufbereitung, Industrieservice und IT —
-            zuverlässig, qualitätsbewusst und deutschlandweit.</p>
-          <div class="social-links">
-            <a href="#" aria-label="Facebook">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                <path
-                  d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4v-8.5z" />
-              </svg>
-            </a>
-            <a href="#" aria-label="Instagram">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                <path
-                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-              </svg>
-            </a>
-            <a href="#" aria-label="LinkedIn">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                <path
-                  d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-              </svg>
-            </a>
-          </div>
+        <!-- Brand -->
+        <div class="f-brand">
+          <a href="index.html" class="f-logo">NEXGROUP</a>
+          <p class="f-desc">Präzision und Qualität in allen Divisionen. Ihr Partner für professionelle Dienstleistungen.
+          </p>
         </div>
-        <div class="footer-col">
-          <h4>Navigation</h4>
-          <ul>
-            <li><a href="index.html#startseite">Startseite</a></li>
-            <li><a href="index.html#geschichte">Geschichte</a></li>
-            <li><a href="index.html#kontakt">Kontakt</a></li>
+        <!-- Nav -->
+        <div>
+          <h4 class="f-title">Navigation</h4>
+          <ul class="f-links">
+            <li><a href="#about">Über uns</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Kontakt</a></li>
           </ul>
         </div>
-        <div class="footer-col">
-          <h4>Services</h4>
-          <ul>
+        <!-- Services -->
+        <div>
+          <h4 class="f-title">Services</h4>
+          <ul class="f-links">
             <li><a href="autoaufbereitung.html">Autoaufbereitung</a></li>
             <li><a href="industrieservice.html">Industrieservice</a></li>
+            <li><a href="#contact">Objekträumung</a></li>
             <li><a href="it-dienstleistungen.html">IT Dienstleistungen</a></li>
           </ul>
         </div>
-        <div class="footer-col">
-          <h4>Kontakt</h4>
-          <ul>
-            <li>[Straße, Hausnummer]</li>
-            <li>[PLZ Stadt]</li>
-            <li style="margin-top:8px"><a href="tel:+490000000000">[+49 000 / 000000-0]</a></li>
-            <li><a href="mailto:info@firma.de">[info@firma.de]</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Rechtliches</h4>
-          <ul>
+        <!-- Legal -->
+        <div>
+          <h4 class="f-title">Rechtliches</h4>
+          <ul class="f-links">
             <li><a href="impressum.html">Impressum</a></li>
             <li><a href="datenschutz.html">Datenschutz</a></li>
             <li><a href="datenschutz.html">AGB</a></li>
-            <li><a href="datenschutz.html">Cookie-Richtlinie</a></li>
+            <li><a href="datenschutz.html">Cookies</a></li>
           </ul>
         </div>
       </div>
-      <div class="footer-divider"></div>
       <div class="footer-bottom">
-        <p>© 2026 INTEXO. Alle Rechte vorbehalten.</p>
+        <p>© 2026 NexGroup. Alle Rechte vorbehalten.</p>
       </div>
     </div>
   </footer>
 
   <script>
-    // Navbar scroll
-    window.addEventListener('scroll', () => {
-      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
-    });
-
-    // Mobile menu
-    function toggleMenu() {
-      document.getElementById('navLinks').classList.toggle('open');
-      document.getElementById('hamburger').classList.toggle('open');
-    }
-    function closeMenu() {
-      document.getElementById('navLinks').classList.remove('open');
-      document.getElementById('hamburger').classList.remove('open');
-    }
-
-    // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-      const navLinks = document.getElementById('navLinks');
-      const navbar = document.getElementById('navbar');
-      if (navLinks && navLinks.classList.contains('open') && !navbar.contains(e.target)) {
-        closeMenu();
+    // LOADER
+    window.addEventListener('load', () => {
+      if (!sessionStorage.getItem('nex_loaded')) {
+        setTimeout(() => {
+          document.getElementById('loader').classList.add('hidden');
+          sessionStorage.setItem('nex_loaded', 'true');
+        }, 1500);
+      } else {
+        document.getElementById('loader').classList.add('hidden');
       }
+
+      // Reveal animations
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     });
 
-    // Page transition on service card click
-    function navigateTo(e, url) {
-      e.preventDefault();
-      document.body.classList.add('page-exit');
-      setTimeout(() => { window.location.href = url; }, 300);
-    }
-
-    // Scroll reveal
-    const revealEls = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
+    // PAGE TRANSITION
+    document.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (href && href.endsWith('.html') && !href.startsWith('#')) {
+          e.preventDefault();
+          document.getElementById('pageTransition').classList.add('active');
+          setTimeout(() => {
+            window.location.href = href;
+          }, 400);
         }
       });
-    }, { threshold: 0.12 });
-    revealEls.forEach(el => observer.observe(el));
+    });
 
-    // Loading screen logic
-    window.addEventListener('DOMContentLoaded', () => {
-      const loadScreen = document.getElementById('loading-screen');
-      if (loadScreen) {
-        if (!sessionStorage.getItem('intexo_loaded')) {
-          setTimeout(() => {
-            loadScreen.classList.add('fade-out');
-            sessionStorage.setItem('intexo_loaded', 'true');
-          }, 2500);
-        } else {
-          loadScreen.style.display = 'none';
-        }
-      }
+    // CONTACT FORM
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Vielen Dank für Ihre Nachricht. Wir melden uns in Kürze.');
+      e.target.reset();
     });
   </script>
 </body>
