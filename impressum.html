@@ -4,142 +4,120 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Impressum | NexGroup</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: #ffffff; color: #1A1A1A; line-height: 1.7; padding-top: 108px; }
+    .container { max-width: 1240px; margin: 0 auto; padding: 0 40px; width: 100%; }
+    .legal-container { max-width: 800px; margin: 0 auto; padding: 0 40px; }
+    
+    /* HEADER (Simplified matching Fixed Header) */
+    .header-fixed { position: fixed; top: 0; left: 0; right: 0; width: 100%; z-index: 1000; }
+    .top-bar { background: #1A7A4A; height: 38px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .top-bar span { font-size: 13px; font-weight: 500; color: #ffffff; }
+    .navbar { background: #0F1F0F; height: 70px; display: flex; align-items: center; }
+    .nav-logo { font-weight: 800; font-size: 22px; color: #ffffff; text-transform: uppercase; letter-spacing: 0.06em; text-decoration: none; }
+
+    /* CONTENT */
+    .legal-content { padding: 80px 0; }
+    h1 { font-size: 36px; font-weight: 800; margin-bottom: 40px; color: #111111; letter-spacing: -0.01em; }
+    h2 { font-size: 20px; font-weight: 700; margin: 32px 0 16px; color: #111111; }
+    p { margin-bottom: 20px; color: #4A4A4A; }
+    .divider { height: 1px; background: #EEEEEE; margin: 40px 0; }
+
+    /* FOOTER */
+    .site-footer { background: #0F1F0F; padding: 40px 0; color: rgba(255,255,255,0.6); text-align: center; font-size: 14px; }
+    .f-logo-brand { font-size: 20px; font-weight: 800; color: #ffffff; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 14px; display: block; }
+
+    @media (max-width: 768px) {
+      body { padding-top: 70px; }
+      .top-bar { display: none; }
+      .navbar { height: 70px; }
+      .container, .legal-container { padding: 0 24px; }
+      .legal-content { padding: 48px 0; }
+      h1 { font-size: 28px; margin-bottom: 24px; }
+      .nav-logo { font-size: 18px; }
+      .nav-btn { font-size: 12px; padding: 8px 12px; }
+    }
+    @media (max-width: 480px) {
+      .nav-logo { font-size: 16px; }
+      .nav-btn { font-size: 11px; padding: 6px 10px; }
+      h1 { font-size: 24px; }
+      h2 { font-size: 18px; }
+    }
+  </style>
 </head>
 <body>
 
-  <div class="page-transition" id="pageTransition"></div>
-
-  <nav class="navbar">
-    <div class="container nav-container">
-      <a href="index.html" class="nav-logo">NEXGROUP</a>
-      <div class="nav-right">
-        <div class="nav-links">
-          <a href="index.html#about">Über uns</a>
-          <a href="index.html#services">Services</a>
-        </div>
-        <a href="index.html#contact" class="btn btn-black btn-nav">Kontakt</a>
-      </div>
+  <header class="header-fixed">
+    <div class="top-bar">
+      <span>NexGroup Divisionen &mdash; Exzellenz in jedem Bereich</span>
     </div>
-  </nav>
-
-  <main class="legal-page">
-    <div class="container">
-      <div class="legal-card reveal">
-        <div class="legal-block">
-          <h2 class="t-h2">Impressum</h2>
-        </div>
-
-        <div class="legal-block">
-          <h3>Angaben gemäß § 5 TMG</h3>
-          <p>[FIRMENNAME]<br>
-          [Straße]<br>
-          [PLZ Stadt]</p>
-        </div>
-
-        <div class="legal-block">
-          <h3>Vertreten durch</h3>
-          <p>[Name]</p>
-        </div>
-
-        <div class="legal-block">
-          <h3>Kontakt</h3>
-          <p>Telefon: [+49 000 / 000000-0]<br>
-          E-Mail: [info@nexgroup.de]</p>
-        </div>
-
-        <div class="legal-block">
-          <h3>Registereintrag</h3>
-          <p>Eintragung im Handelsregister.<br>
-          Registergericht: [Amtsgericht]<br>
-          Registernummer: [HRB]</p>
-        </div>
-
-        <div class="legal-block">
-          <h3>Umsatzsteuer-ID</h3>
-          <p>Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:<br>
-          [DE-USt]</p>
-        </div>
-
-        <div class="legal-block">
-          <h3>EU-Streitschlichtung</h3>
-          <p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: 
-          <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener">https://ec.europa.eu/consumers/odr/</a>.<br>
-          Unsere E-Mail-Adresse finden Sie oben im Impressum.</p>
-        </div>
-
-        <div class="legal-block">
-          <h3>Verbraucherstreitbeilegung/ Universalschlichtungsstelle</h3>
-          <p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
-        </div>
+    <nav class="navbar">
+      <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+        <a href="index.html" class="nav-logo">NexGroup</a>
+        <a href="index.html" class="nav-btn" style="color: #ffffff; font-size: 14px; font-weight: 600; padding: 10px 16px; border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; transition: all 0.3s; text-decoration: none;">Zurück zur Startseite</a>
       </div>
+    </nav>
+  </header>
+
+  <main class="legal-content">
+    <div class="legal-container">
+      <h1>Impressum</h1>
+      
+      <section>
+        <h2>Angaben gemäß § 5 TMG</h2>
+        <p>
+          NexGroup IT & Industrieservice<br>
+          Musterstraße 123<br>
+          12345 Musterstadt
+        </p>
+
+        <h2>Vertreten durch:</h2>
+        <p>Max Mustermann (Geschäftsführer)</p>
+
+        <h2>Kontakt</h2>
+        <p>
+          Telefon: +49 000 / 000000-0<br>
+          E-Mail: info@nexgroup.de
+        </p>
+
+        <h2>Registereintrag</h2>
+        <p>
+          Eintragung im Handelsregister.<br>
+          Registergericht: Amtsgericht Musterstadt<br>
+          Registernummer: HRB 123456
+        </p>
+
+        <h2>Umsatzsteuer-ID</h2>
+        <p>
+          Umsatzsteuer-Identifikationsnummer gemäß §27 a Umsatzsteuergesetz:<br>
+          DE 123 456 789
+        </p>
+
+        <div class="divider"></div>
+
+        <h2>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:</h2>
+        <p>
+          Max Mustermann<br>
+          Musterstraße 123<br>
+          12345 Musterstadt
+        </p>
+
+        <h2>Streitschlichtung</h2>
+        <p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href="https://ec.europa.eu/consumers/odr" target="_blank" style="color: #1A7A4A; font-weight: 600;">https://ec.europa.eu/consumers/odr</a>.<br>Unsere E-Mail-Adresse finden Sie oben im Impressum.</p>
+        <p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+      </section>
     </div>
   </main>
 
-  <footer>
-    <div class="container">
-      <div class="footer-grid">
-        <div class="f-brand">
-          <a href="index.html" class="f-logo">NEXGROUP</a>
-          <p class="f-desc">Präzision und Qualität in allen Divisionen. Ihr Partner für professionelle Dienstleistungen.</p>
-        </div>
-        <div>
-          <h4 class="f-title">Navigation</h4>
-          <ul class="f-links">
-            <li><a href="index.html#about">Über uns</a></li>
-            <li><a href="index.html#services">Services</a></li>
-            <li><a href="index.html#contact">Kontakt</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="f-title">Services</h4>
-          <ul class="f-links">
-            <li><a href="autoaufbereitung.html">Autoaufbereitung</a></li>
-            <li><a href="industrieservice.html">Industrieservice</a></li>
-            <li><a href="index.html#contact">Objekträumung</a></li>
-            <li><a href="it-dienstleistungen.html">IT Dienstleistungen</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="f-title">Rechtliches</h4>
-          <ul class="f-links">
-            <li><a href="impressum.html">Impressum</a></li>
-            <li><a href="datenschutz.html">Datenschutz</a></li>
-            <li><a href="datenschutz.html">AGB</a></li>
-            <li><a href="datenschutz.html">Cookies</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© 2026 NexGroup. Alle Rechte vorbehalten.</p>
-      </div>
+  <footer class="site-footer">
+    <div class="legal-container">
+      <span class="f-logo-brand">NexGroup</span>
+      <p>&copy; 2026 NexGroup. Alle Rechte vorbehalten.</p>
     </div>
   </footer>
 
-  <script>
-    window.addEventListener('load', () => {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-          }
-        });
-      }, { threshold: 0.1 });
-      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    });
-
-    document.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', (e) => {
-        const href = link.getAttribute('href');
-        if (href && href.endsWith('.html') && !href.startsWith('#')) {
-          e.preventDefault();
-          document.getElementById('pageTransition').classList.add('active');
-          setTimeout(() => {
-            window.location.href = href;
-          }, 400);
-        }
-      });
-    });
-  </script>
 </body>
 </html>

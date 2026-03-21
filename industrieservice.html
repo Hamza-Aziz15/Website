@@ -1,281 +1,1468 @@
 <!DOCTYPE html>
 <html lang="de">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Industrieservice | NexGroup</title>
-  <link rel="stylesheet" href="style.css">
-</head>
+  <title>Industrieservice – NexGroup</title>
+  <meta name="description" content="NexGroup Industrieservice: Sicherheitsmarkierungen, Anlagenreinigung, Wartung und Maschinendemontage für Industriebetriebe.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ─── RESET ─── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      overflow-wrap: break-word;
+    }
+    * { min-width: 0; }
+    html, body { overflow-x: hidden; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      color: #4A4A4A;
+      font-size: 16px;
+      line-height: 1.75;
+      padding-top: 108px;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
 
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+      width: 100%;
+    }
+
+    /* ─── LOADER ─── */
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: #ffffff;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.4s ease;
+    }
+    #loader.fade-out { opacity: 0; pointer-events: none; }
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid #F4F4F4;
+      border-top: 3px solid #E8621A;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── HEADER WRAP ─── */
+    .header-fixed {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    /* ─── TOP BAR ─── */
+    .top-bar {
+      background: #E8621A;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .top-bar span {
+      font-size: 13px;
+      font-weight: 500;
+      color: #ffffff;
+    }
+    .top-bar svg { flex-shrink: 0; color: #ffffff; }
+
+    /* ─── NAVBAR ─── */
+    .navbar {
+      background: #1E1E1E;
+      height: 70px;
+    }
+    .navbar .container {
+      height: 100%;
+    }
+    .nav-inner {
+      height: 100%;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      max-width: 100%;
+      overflow: visible;
+    }
+    .nav-logo {
+      font-weight: 800;
+      font-size: 22px;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      justify-self: start;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+      justify-self: center;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.8);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #E8621A; }
+    .nav-cta {
+      background: #E8621A;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 10px 22px;
+      border-radius: 3px;
+      transition: background 0.2s;
+      white-space: nowrap;
+      justify-self: end;
+    }
+    .nav-cta:hover { background: #C4520F; }
+
+    /* hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #ffffff;
+    }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 108px;
+      left: 0;
+      right: 0;
+      background: #1E1E1E;
+      z-index: 899;
+      flex-direction: column;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 14px;
+      font-weight: 500;
+      color: #ffffff;
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .mobile-menu a.mm-cta { color: #E8621A; font-weight: 600; }
+
+    /* ─── SECTION DIVIDER ─── */
+    .section-divider {
+      width: 100%;
+      height: 3px;
+      background: #E8621A;
+    }
+
+    /* ─── SECTION 1: HERO ─── */
+    .hero {
+      background-image: 
+        linear-gradient(rgba(30,30,30,0.82), rgba(30,30,30,0.82)),
+        url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      padding-bottom: 80px;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+    }
+    .hero-content { max-width: 600px; }
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: #E8621A;
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-size: clamp(36px, 5vw, 60px);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      margin-bottom: 22px;
+    }
+    .hero-desc {
+      font-size: 16px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.7);
+      max-width: 480px;
+      margin-bottom: 36px;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: #E8621A;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 13px 28px;
+      border-radius: 3px;
+      display: inline-block;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: #C4520F; }
+    .btn-outline-white {
+      border: 2px solid #ffffff;
+      background: transparent;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 11px 28px;
+      border-radius: 3px;
+      display: inline-block;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-outline-white:hover { background: #ffffff; color: #1E1E1E; }
+
+    /* hero stats */
+    .hero-stats {
+      border-top: 1px solid rgba(255,255,255,0.15);
+      padding-top: 32px;
+      margin-top: 56px;
+      display: flex;
+      align-items: flex-start;
+    }
+    .h-stat {
+      padding: 0 36px;
+    }
+    .h-stat:first-child { padding-left: 0; }
+    .h-stat:not(:last-child) {
+      border-right: 1px solid rgba(255,255,255,0.15);
+    }
+    .h-stat-num {
+      font-size: 52px;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .h-stat-lbl {
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.5);
+      margin-top: 6px;
+    }
+
+    /* ─── SECTION 2: INTRO SPLIT ─── */
+    .intro-split {
+      background: #ffffff;
+      padding: 96px 0;
+    }
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 55fr 45fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #E8621A;
+      margin-bottom: 14px;
+    }
+    .section-h2 {
+      font-size: clamp(26px, 3.5vw, 42px);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      color: #1A1A1A;
+      margin-bottom: 20px;
+    }
+    .intro-text {
+      font-size: 16px;
+      color: #4A4A4A;
+      margin-bottom: 32px;
+    }
+    .trust-points { list-style: none; margin-bottom: 32px; }
+    .trust-point {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      font-weight: 500;
+      color: #1A1A1A;
+      margin-bottom: 14px;
+    }
+    .t-dot {
+      width: 8px;
+      height: 8px;
+      background: #E8621A;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .img-placeholder {
+      background: #2A2A2A;
+      border-left: 5px solid #E8621A;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .img-placeholder span {
+      font-size: 13px;
+      color: rgba(255,255,255,0.3);
+    }
+    .intro-img { 
+      aspect-ratio: 4 / 3;
+      background-image: url('https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?w=800&q=80');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    /* ─── SECTION 3: ALTERNATING SPLIT ROWS ─── */
+    .alt-split-section {
+      background: #ffffff;
+    }
+    .alt-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      height: 440px;
+    }
+    .alt-img-wrap {
+      overflow: hidden;
+      height: 100%;
+    }
+    .alt-img {
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: transform 0.4s ease;
+    }
+    .alt-row:hover .alt-img {
+      transform: scale(1.03);
+    }
+    .alt-text {
+      background: #ffffff;
+      padding: 64px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: background 0.4s ease;
+    }
+    .alt-row:hover .alt-text {
+      background: #FAFAFA;
+    }
+    .alt-label {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 11px;
+      color: #E8621A;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 14px;
+    }
+    .alt-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 28px;
+      color: #1A1A1A;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .alt-line {
+      width: 40px;
+      height: 3px;
+      background: #E8621A;
+      margin-bottom: 20px;
+    }
+    .alt-desc {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 15px;
+      color: #4A4A4A;
+      line-height: 1.75;
+      max-width: 420px;
+      margin-bottom: 28px;
+    }
+    .alt-bullets {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .alt-bullet {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .alt-bullet span {
+      width: 7px;
+      height: 7px;
+      background: #E8621A;
+      flex-shrink: 0;
+    }
+    .alt-bullet p {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      color: #4A4A4A;
+      margin: 0;
+    }
+    @media (max-width: 768px) {
+      .alt-row {
+        grid-template-columns: 1fr;
+        height: auto;
+      }
+      .alt-img-wrap {
+        order: -1;
+        min-height: 280px;
+      }
+      .alt-text {
+        padding: 40px 24px;
+      }
+    }
+    @media (max-width: 480px) {
+      .alt-img-wrap {
+        min-height: 220px;
+      }
+      .alt-text {
+        padding: 32px 16px;
+      }
+    }
+
+    /* ─── SECTION 4: 3-COLUMN FEATURES ─── */
+    .kern-section {
+      background: #1E1E1E;
+      padding: 96px 0;
+    }
+    .kern-header .section-h2 {
+      color: #ffffff;
+    }
+    .kern-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .kern-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .kern-card {
+      background: #2A2A2A;
+      padding-bottom: 32px;
+      border-left: 4px solid #E8621A;
+    }
+    .kern-card-content {
+      padding: 0 32px;
+    }
+    .kern-img {
+      aspect-ratio: 16 / 9;
+      width: 100%;
+      margin-bottom: 24px;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .kern-img-1 { background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80'); }
+    .kern-img-2 { background-image: url('https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=600&q=80'); }
+    .kern-img-3 { background-image: url('https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?w=600&q=80'); }
+    
+    .kern-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+    .kern-card p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.65;
+    }
+    .kern-link {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #E8621A;
+      transition: color 0.2s, text-decoration 0.2s;
+    }
+    .kern-link:hover { color: #C4520F; text-decoration: underline; }
+
+    /* ─── SECTION 5: SPLIT REVERSED ─── */
+    .split-rev {
+      background: #F4F4F4;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: stretch;
+    }
+    .split-body-left {
+      background: #ffffff;
+      padding: 72px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .split-body-left h2 {
+      font-size: clamp(24px, 3vw, 36px);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      color: #1A1A1A;
+      margin-bottom: 20px;
+    }
+    .split-body-left > p {
+      font-size: 16px;
+      color: #4A4A4A;
+      margin-bottom: 32px;
+    }
+    .feat-list { list-style: none; }
+    .feat-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #1A1A1A;
+      padding: 16px 0;
+      border-top: 1px solid #DDDDDD;
+    }
+    .feat-sq {
+      width: 10px;
+      height: 10px;
+      background: #E8621A;
+      flex-shrink: 0;
+    }
+    .split-img-right {
+      background-image: url('https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800&q=80');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      min-height: 520px;
+      border-right: 6px solid #E8621A;
+    }
+
+    /* ─── SECTION 6: DARK STATS STRIP ─── */
+    .stats-strip {
+      background: #1E1E1E;
+      padding: 64px 0;
+      border-top: 4px solid #E8621A;
+    }
+    .stats-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .st-item {
+      text-align: center;
+      padding: 0 48px;
+    }
+    .st-item:not(:last-child) {
+      border-right: 1px solid rgba(255,255,255,0.3);
+    }
+    .st-num {
+      font-size: clamp(40px, 5vw, 64px);
+      font-weight: 800;
+      color: #ffffff;
+      white-space: nowrap;
+      line-height: 1;
+    }
+    .st-lbl {
+      font-size: 13px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.7);
+      margin-top: 8px;
+    }
+
+    /* ─── SECTION 7: PROCESS STEPS ─── */
+    .process-section {
+      background: #ffffff;
+      padding: 96px 0;
+    }
+    .proc-header { margin-bottom: 56px; }
+    .proc-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .proc-step {
+      background: #F9F9F9;
+      padding: 32px;
+      border: 1px solid #EAEAEA;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .proc-num {
+      font-size: 64px;
+      font-weight: 800;
+      color: #333333;
+      line-height: 1;
+      margin-bottom: 16px;
+      white-space: nowrap;
+    }
+    .proc-line {
+      width: 40px;
+      height: 3px;
+      background: #E8621A;
+      margin-bottom: 16px;
+    }
+    .proc-step h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #1A1A1A;
+      margin-bottom: 10px;
+    }
+    .proc-step p {
+      font-size: 14px;
+      color: #4A4A4A;
+      line-height: 1.65;
+    }
+    .proc-img-wrapper {
+      width: 100%;
+      aspect-ratio: 4/3;
+      margin-bottom: 24px;
+      overflow: hidden;
+      background: #2A2A2A;
+      position: relative;
+    }
+    .proc-img {
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transform: translateX(-100%);
+      transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .reveal.active .proc-img {
+      transform: translateX(0);
+    }
+    .proc-step:nth-child(1) .proc-img { transition-delay: 0s; }
+    .proc-step:nth-child(2) .proc-img { transition-delay: 0.15s; }
+    .proc-step:nth-child(3) .proc-img { transition-delay: 0.3s; }
+    .proc-step:nth-child(4) .proc-img { transition-delay: 0.45s; }
+
+    /* ─── SECTION 8: CTA BANNER ─── */
+    .cta-banner {
+      background-image: linear-gradient(rgba(30, 30, 30, 0.9), rgba(30, 30, 30, 0.9)), url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      padding: 80px 0;
+    }
+    .cta-grid {
+      display: grid;
+      grid-template-columns: 60fr 40fr;
+      align-items: center;
+      gap: 60px;
+    }
+    .cta-left .section-label { margin-bottom: 14px; }
+    .cta-left h2 {
+      font-size: clamp(26px, 3.5vw, 40px);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      color: #ffffff;
+      margin-bottom: 16px;
+    }
+    .cta-left p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.65);
+    }
+    .cta-right {
+      display: flex;
+      justify-content: flex-end;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    /* ─── SECTION 9: CONTACT ─── */
+    .contact-section {
+      background: #F4F4F4;
+      padding: 96px 0;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 45fr 55fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .contact-info h2 {
+      font-size: clamp(24px, 3vw, 36px);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      color: #1A1A1A;
+      margin-bottom: 18px;
+    }
+    .contact-info > p {
+      font-size: 15px;
+      color: #4A4A4A;
+      margin-bottom: 32px;
+    }
+    .c-details { border-top: 1px solid #DDDDDD; }
+    .c-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid #DDDDDD;
+    }
+    .c-item svg { color: #E8621A; flex-shrink: 0; }
+    .c-item span {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1A1A1A;
+    }
+    .c-note {
+      font-size: 13px;
+      font-style: italic;
+      color: #888888;
+      margin-top: 20px;
+      line-height: 1.6;
+    }
+
+    /* Form */
+    .form-box {
+      background: #ffffff;
+      border: 1px solid #DDDDDD;
+      border-top: 3px solid #E8621A;
+      padding: 36px;
+      border-radius: 3px;
+    }
+    .f-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .f-row.f-full { grid-template-columns: 1fr; }
+    .f-group { display: flex; flex-direction: column; }
+    .f-group label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #4A4A4A;
+      margin-bottom: 6px;
+    }
+    .f-group input,
+    .f-group select,
+    .f-group textarea {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      color: #1A1A1A;
+      background: #ffffff;
+      border: 1px solid #DDDDDD;
+      border-radius: 2px;
+      padding: 12px 16px;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+      appearance: none;
+    }
+    .f-group input::placeholder,
+    .f-group textarea::placeholder { color: #888888; }
+    .f-group select { color: #1A1A1A; }
+    .f-group select option:first-child { color: #888888; }
+    .f-group input:focus,
+    .f-group select:focus,
+    .f-group textarea:focus { border-color: #E8621A; }
+    .f-group textarea { min-height: 100px; resize: vertical; }
+    .btn-submit {
+      width: 100%;
+      background: #E8621A;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 14px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background 0.2s;
+    }
+    .btn-submit:hover { background: #C4520F; }
+
+    /* ─── FOOTER ─── */
+    .site-footer {
+      background: #1E1E1E;
+      padding: 56px 0 28px;
+      border-top: 4px solid #E8621A;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+    }
+    .f-logo-brand {
+      font-size: 20px;
+      font-weight: 800;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      display: block;
+      margin-bottom: 14px;
+    }
+    .f-brand-desc {
+      font-size: 14px;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 24px;
+      line-height: 1.65;
+    }
+    .f-contact-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 10px;
+    }
+    .f-contact-line svg { color: rgba(255,255,255,0.65); flex-shrink: 0; }
+    .f-col-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 16px;
+    }
+    .f-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .f-links a {
+      font-size: 14px;
+      color: rgba(255,255,255,0.65);
+      transition: color 0.2s;
+    }
+    .f-links a:hover { color: #ffffff; }
+    .footer-divider {
+      height: 1px;
+      background: rgba(255,255,255,0.1);
+      margin: 40px 0 20px;
+    }
+    .footer-copy {
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* ─── RESPONSIVE 768px ─── */
+    @media (max-width: 768px) {
+      .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+
+      .hero-eyebrow { margin-top: 32px; }
+
+      .hero { min-height: 480px; }
+      .hero-stats { flex-wrap: wrap; gap: 0; }
+      .h-stat {
+        border-right: none !important;
+        border-bottom: 1px solid rgba(255,255,255,0.15);
+        padding: 20px 0;
+        width: 100%;
+      }
+      .h-stat:last-child { border-bottom: none; }
+
+      .intro-grid { grid-template-columns: 1fr; gap: 40px; }
+      .intro-img { order: -1; }
+
+      .s-row {
+        grid-template-columns: 34px 1fr;
+        gap: 14px;
+      }
+      .s-desc, .s-link { display: none; }
+
+      .kern-grid { grid-template-columns: 1fr; gap: 40px; }
+
+      .split-rev { grid-template-columns: 1fr; }
+      .split-img-right {
+        min-height: 280px;
+        order: -1;
+        border-right: none;
+        border-top: 6px solid #E8621A;
+      }
+      .split-body-left { padding: 40px 24px; }
+
+      .stats-row { flex-wrap: wrap; }
+      .st-item {
+        width: 50%;
+        border-right: none !important;
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+        padding: 24px 0;
+      }
+      .st-item:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.3) !important; }
+      .st-item:nth-last-child(-n+2) { border-bottom: none; }
+
+      .proc-grid { grid-template-columns: 1fr 1fr; gap: 40px 20px; }
+      .proc-step { border-right: none; padding: 0; }
+
+      .cta-grid { grid-template-columns: 1fr; gap: 32px; }
+      .cta-right { justify-content: flex-start; }
+
+      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+      .f-row { grid-template-columns: 1fr; }
+
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    }
+
+    /* ─── RESPONSIVE 480px ─── */
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+      .hero h1 { font-size: clamp(30px, 7vw, 44px); }
+      .hero-btns { flex-direction: column; }
+      .hero-btns a { width: 100%; text-align: center; }
+
+      .proc-grid { grid-template-columns: 1fr; gap: 32px; }
+      .proc-step { border-right: none; padding: 0; }
+
+      .stats-row { flex-direction: column; }
+      .st-item { width: 100%; border-right: none !important; }
+
+      .cta-right { flex-direction: column; }
+      .cta-right a { text-align: center; }
+      .f-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
 <body>
 
-  <div class="page-transition" id="pageTransition"></div>
+  <!-- LOADER -->
+  <div id="loader"><div class="spinner"></div></div>
 
-  <nav class="navbar">
-    <div class="container nav-container">
-      <a href="index.html" class="nav-logo">NEXGROUP</a>
-      <div class="nav-right">
-        <div class="nav-links">
-          <a href="index.html#about">Über uns</a>
-          <a href="index.html#services">Services</a>
+  <header class="header-fixed">
+    <!-- TOP BAR -->
+    <div class="top-bar">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+      </svg>
+      <span>24h Notfallservice &mdash; +49 000 / 000000-0</span>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+      <div class="container">
+        <div class="nav-inner">
+          <a href="index.html" class="nav-logo">NEXGROUP</a>
+          <ul class="nav-links">
+            <li><a href="index.html">Startseite</a></li>
+            <li><a href="#leistungen">Leistungen</a></li>
+            <li><a href="#ueber-uns">Über uns</a></li>
+            <li><a href="#kontakt">Kontakt</a></li>
+          </ul>
+          <a href="#kontakt" class="nav-cta">Anfrage stellen</a>
+          <button class="hamburger" id="menuBtn" aria-label="Menü">
+            <span></span><span></span><span></span>
+          </button>
         </div>
-        <a href="index.html#contact" class="btn btn-black btn-nav">Kontakt</a>
       </div>
-    </div>
-  </nav>
-
-  <header class="page-hero">
-    <div class="container">
-      <a href="index.html" class="back-link reveal">← Zurück zur Übersicht</a>
-      <span class="section-label reveal" style="transition-delay:0.1s;">DIVISION: INDUSTRIESERVICE</span>
-      <h1 class="t-h1 reveal" style="transition-delay:0.2s;">Wartung ohne Stillstand.</h1>
-      <p class="page-hero-desc reveal" style="transition-delay:0.3s;">Spezialisierte Servicelösungen für die moderne
-        Industrie. Wir sorgen für maximale Verfügbarkeit Ihrer Anlagen durch proaktive Wartung.</p>
-      <div class="hero-actions reveal" style="transition-delay:0.4s;">
-        <a href="#leistungen" class="btn btn-black">Unsere Leistungen</a>
-        <a href="index.html#contact" class="btn btn-outline">Anfrage stellen</a>
-      </div>
-    </div>
+    </nav>
   </header>
 
-  <div class="page-stats-bar reveal">
-    <div class="container" style="padding:0;">
-      <div class="hero-stats-row" style="border:none;">
-        <div class="stat-box">
-          <div class="stat-num">24/7</div>
-          <div class="stat-label">Bereitschaft</div>
+  <div class="mobile-menu" id="mobileMenu" style="top: 108px;">
+    <a href="index.html">Startseite</a>
+    <a href="#leistungen">Leistungen</a>
+    <a href="#ueber-uns">Über uns</a>
+    <a href="#kontakt">Kontakt</a>
+    <a href="#kontakt" class="mm-cta">Anfrage stellen</a>
+  </div>
+
+  <!-- ══ SECTION 1: HERO ══ -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-eyebrow">Industrieservice &mdash; NexGroup</div>
+        <h1>Ihr zuverlässiger Partner für Industrieservice.</h1>
+        <p class="hero-desc">Zuverlässige Wartung, Reinigung und Instandhaltung für Ihre Industrieanlagen &mdash; kompetent, termingerecht und sicher.</p>
+        <div class="hero-btns">
+          <a href="#leistungen" class="btn-primary">Leistungen ansehen</a>
+          <a href="#kontakt" class="btn-outline-white">Kontakt aufnehmen</a>
         </div>
-        <div class="stat-box">
-          <div class="stat-num">ISO</div>
-          <div class="stat-label">Zertifiziert</div>
+        <div class="hero-stats">
+          <div class="h-stat">
+            <div class="h-stat-num">7</div>
+            <div class="h-stat-lbl">Leistungsbereiche</div>
+          </div>
+          <div class="h-stat">
+            <div class="h-stat-num">100%</div>
+            <div class="h-stat-lbl">Qualitätsgarantie</div>
+          </div>
+          <div class="h-stat">
+            <div class="h-stat-num">24/7</div>
+            <div class="h-stat-lbl">Notfallservice</div>
+          </div>
         </div>
-        <div class="stat-box">
-          <div class="stat-num">99%</div>
-          <div class="stat-label">Verfügbarkeit</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SECTION DIVIDER ══ -->
+  <div class="section-divider"></div>
+
+  <!-- ══ SECTION 2: INTRO SPLIT ══ -->
+  <section class="intro-split reveal" id="ueber-uns">
+    <div class="container">
+      <div class="intro-grid">
+        <div>
+          <div class="section-label">Über unseren Service</div>
+          <h2 class="section-h2">Industrieservice mit System &mdash; zuverlässig und präzise.</h2>
+          <p class="intro-text">Wir bieten umfassende Serviceleistungen für Industriebetriebe &mdash; von der regelmäßigen Wartung bis zur komplexen Demontage industrieller Anlagen. Unsere zertifizierten Fachkräfte arbeiten nach höchsten Qualitätsstandards.</p>
+          <ul class="trust-points">
+            <li class="trust-point"><span class="t-dot"></span>Zertifizierte Fachkräfte</li>
+            <li class="trust-point"><span class="t-dot"></span>Termingerechte Ausführung</li>
+            <li class="trust-point"><span class="t-dot"></span>Dokumentierte Qualitätssicherung</li>
+            <li class="trust-point"><span class="t-dot"></span>24/7 Notfallbereitschaft</li>
+          </ul>
+          <a href="#kontakt" class="btn-primary">Mehr erfahren</a>
         </div>
-        <div class="stat-box">
-          <div class="stat-num">15+</div>
-          <div class="stat-label">Jahre Erfahrung</div>
+        <div class="img-placeholder intro-img">
+          <span>[ Bild: Industrieanlage ]</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SECTION DIVIDER ══ -->
+  <div class="section-divider"></div>
+
+  <!-- ══ SECTION 3: ALTERNATING SPLIT ROWS ══ -->
+  <section class="alt-split-section reveal" id="leistungen">
+    <!-- ROW 1 -->
+    <div class="alt-row">
+      <div class="alt-img-wrap">
+        <div class="alt-img" style="background-image: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80')"></div>
+      </div>
+      <div class="alt-text">
+        <div class="alt-label">SICHERHEIT & MARKIERUNG</div>
+        <div class="alt-title">Sicherheitsmarkierungen<br>und Bodenmarkierungen</div>
+        <div class="alt-line"></div>
+        <div class="alt-desc">Professionelle Markierungen für Industrieflächen &mdash; Fahrwege, Fußgängerwege und Sperrflächen nach Vorschrift.</div>
+        <div class="alt-bullets">
+          <div class="alt-bullet"><span></span><p>Fahrwege für Stapler</p></div>
+          <div class="alt-bullet"><span></span><p>Fußgängerwege und Fluchtwege</p></div>
+          <div class="alt-bullet"><span></span><p>Sperrflächen und Gefahrenbereiche</p></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- ROW 2 -->
+    <div class="alt-row">
+      <div class="alt-text">
+        <div class="alt-label">REINIGUNG & WARTUNG</div>
+        <div class="alt-title">Reinigung und Wartung<br>von Industrieanlagen</div>
+        <div class="alt-line"></div>
+        <div class="alt-desc">Umfassende Reinigung und Wartung von Umluft-, Klima-, Beschichtungs- und Lackieranlagen.</div>
+        <div class="alt-bullets">
+          <div class="alt-bullet"><span></span><p>Umluft- und Klimaanlagen</p></div>
+          <div class="alt-bullet"><span></span><p>Beschichtungs- und Lackieranlagen</p></div>
+          <div class="alt-bullet"><span></span><p>Regelmäßige Wartungsintervalle</p></div>
+        </div>
+      </div>
+      <div class="alt-img-wrap">
+        <div class="alt-img" style="background-image: url('https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&q=80')"></div>
+      </div>
+    </div>
+    
+    <!-- ROW 3 -->
+    <div class="alt-row">
+      <div class="alt-img-wrap">
+        <div class="alt-img" style="background-image: url('https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?w=800&q=80')"></div>
+      </div>
+      <div class="alt-text">
+        <div class="alt-label">MASCHINENSERVICE</div>
+        <div class="alt-title">Reinigung und Wartung<br>von Webmaschinen</div>
+        <div class="alt-line"></div>
+        <div class="alt-desc">Spezialisierte Reinigung und Wartung von Webmaschinen sowie weiteren industriellen Produktionsanlagen.</div>
+        <div class="alt-bullets">
+          <div class="alt-bullet"><span></span><p>Webmaschinen aller Hersteller</p></div>
+          <div class="alt-bullet"><span></span><p>Professionelle Maschinenpflege</p></div>
+          <div class="alt-bullet"><span></span><p>Schnelle Reaktionszeiten</p></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- ROW 4 -->
+    <div class="alt-row">
+      <div class="alt-text">
+        <div class="alt-label">DEMONTAGE</div>
+        <div class="alt-title">Fachgerechte Demontage<br>industrieller Maschinen</div>
+        <div class="alt-line"></div>
+        <div class="alt-desc">Sicherer und dokumentierter Abbau komplexer Industriemaschinen &mdash; termingerecht und nach Vorschrift.</div>
+        <div class="alt-bullets">
+          <div class="alt-bullet"><span></span><p>Vollständige Dokumentation</p></div>
+          <div class="alt-bullet"><span></span><p>Zertifiziertes Fachpersonal</p></div>
+          <div class="alt-bullet"><span></span><p>Entsorgung nach gesetzlichen Vorgaben</p></div>
+        </div>
+      </div>
+      <div class="alt-img-wrap">
+        <div class="alt-img" style="background-image: url('https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?w=800&q=80')"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SECTION DIVIDER ══ -->
+  <div class="section-divider"></div>
+
+  <!-- ══ SECTION 4: 3 FEATURE BLOCKS ══ -->
+  <section class="kern-section reveal">
+    <div class="container">
+      <div class="kern-header">
+        <div class="section-label">Unsere Kernbereiche</div>
+        <h2 class="section-h2">Spezialisiert in drei Bereichen.</h2>
+      </div>
+      <div class="kern-grid">
+        <div class="kern-card">
+          <div class="kern-img kern-img-1"></div>
+          <div class="kern-card-content">
+            <h3>Anlagenwartung</h3>
+            <p>Vorbeugende Instandhaltung zur Maximierung der Anlagenverfügbarkeit.</p>
+            <a href="#kontakt" class="kern-link">Mehr erfahren &rarr;</a>
+          </div>
+        </div>
+        <div class="kern-card">
+          <div class="kern-img kern-img-2"></div>
+          <div class="kern-card-content">
+            <h3>Industriereinigung</h3>
+            <p>Professionelle Reinigung nach strengen Industriestandards.</p>
+            <a href="#kontakt" class="kern-link">Mehr erfahren &rarr;</a>
+          </div>
+        </div>
+        <div class="kern-card">
+          <div class="kern-img kern-img-3"></div>
+          <div class="kern-card-content">
+            <h3>Maschinendemontage</h3>
+            <p>Fachgerechter Abbau komplexer Industrieanlagen und Maschinen.</p>
+            <a href="#kontakt" class="kern-link">Mehr erfahren &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SECTION DIVIDER ══ -->
+  <div class="section-divider"></div>
+
+  <!-- ══ SECTION 5: SPLIT REVERSED ══ -->
+  <div class="split-rev reveal">
+    <div class="split-body-left">
+      <div class="section-label">Warum NexGroup</div>
+      <h2>Industrieerfahrung die überzeugt.</h2>
+      <p>Seit Jahren vertrauen Industriebetriebe auf unsere Expertise. Wir liefern Ergebnisse die messbar sind.</p>
+      <ul class="feat-list">
+        <li class="feat-item"><span class="feat-sq"></span>Über 100 betreute Industriekunden</li>
+        <li class="feat-item"><span class="feat-sq"></span>ISO-konforme Arbeitsprozesse</li>
+        <li class="feat-item"><span class="feat-sq"></span>Eigenes Fachpersonal &mdash; keine Subunternehmer</li>
+        <li class="feat-item"><span class="feat-sq"></span>Vollständige Dokumentation aller Leistungen</li>
+      </ul>
+      <div style="margin-top:36px;">
+        <a href="#kontakt" class="btn-primary">Anfrage stellen</a>
+      </div>
+    </div>
+    <div class="split-img-right"></div>
+  </div>
+
+  <!-- ══ SECTION DIVIDER ══ -->
+  <div class="section-divider"></div>
+
+  <!-- ══ SECTION 6: ORANGE STATS ══ -->
+  <div class="stats-strip reveal">
+    <div class="container">
+      <div class="stats-row">
+        <div class="st-item">
+          <div class="st-num">7+</div>
+          <div class="st-lbl">Leistungsbereiche</div>
+        </div>
+        <div class="st-item">
+          <div class="st-num">100%</div>
+          <div class="st-lbl">Kundenzufriedenheit</div>
+        </div>
+        <div class="st-item">
+          <div class="st-num">24/7</div>
+          <div class="st-lbl">Erreichbarkeit</div>
+        </div>
+        <div class="st-item">
+          <div class="st-num">15+</div>
+          <div class="st-lbl">Jahre Erfahrung</div>
         </div>
       </div>
     </div>
   </div>
 
-  <section class="s-cards-section" id="leistungen">
-    <div class="container">
-      <span class="section-label">UNSERE LEISTUNGEN</span>
-      <h2 class="t-h2">Umfassende Industrie-Lösungen</h2>
+  <!-- ══ SECTION DIVIDER ══ -->
+  <div class="section-divider"></div>
 
-      <div class="s-cards-grid">
-        <div class="s-card reveal">
-          <svg class="s-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-          </svg>
-          <h3>Anlagenwartung</h3>
-          <p>Regelmäßige Inspektion und Instandhaltung Ihrer Produktionsanlagen zur Vermeidung teurer Ausfallzeiten.</p>
-          <div class="s-card-list">
-            <div class="s-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg> Präventive Wartung</div>
-            <div class="s-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg> Zustandsanalyse</div>
-            <div class="s-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg> Ersatzteilmanagement</div>
+  <!-- ══ SECTION 7: PROCESS ══ -->
+  <section class="process-section reveal">
+    <div class="container">
+      <div class="proc-header">
+        <div class="section-label">Unser Ablauf</div>
+        <h2 class="section-h2">So arbeiten wir.</h2>
+      </div>
+      <div class="proc-grid">
+        <div class="proc-step">
+          <div class="proc-img-wrapper">
+            <div class="proc-img" style="background-image: url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&q=80')"></div>
           </div>
+          <div class="proc-num">01</div>
+          <div class="proc-line"></div>
+          <h3>Bestandsaufnahme</h3>
+          <p>Analyse Ihrer Anlagen und Anforderungen vor Ort.</p>
         </div>
-        <div class="s-card reveal" style="transition-delay:0.1s;">
-          <svg class="s-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-            <path d="M2 17l10 5 10-5"></path>
-            <path d="M2 12l10 5 10-5"></path>
-          </svg>
-          <h3>Industriereinigung</h3>
-          <p>Hochspezialisierte Reinigung von Maschinen, Hallen und technischen Systemen unter Einhaltung höchster
-            Standards.</p>
-          <div class="s-card-list">
-            <div class="s-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg> Trockeneisstrahlen</div>
-            <div class="s-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg> Hallenreinigung</div>
-            <div class="s-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg> Filterwechsel</div>
+        <div class="proc-step">
+          <div class="proc-img-wrapper">
+            <div class="proc-img" style="background-image: url('https://images.unsplash.com/photo-1556761175-4b46a572b786?w=600&q=80')"></div>
           </div>
+          <div class="proc-num">02</div>
+          <div class="proc-line"></div>
+          <h3>Angebotserstellung</h3>
+          <p>Transparentes Angebot ohne versteckte Kosten.</p>
         </div>
-        <div class="s-card reveal">
-          <svg class="s-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-            <polyline points="9 22 9 12 15 12 15 22"></polyline>
-          </svg>
-          <h3>Facility Management</h3>
-          <p>Ganzheitliche Betreuung Ihrer Industrieimmobilie von der Technik bis zur Infrastruktur.</p>
-          <div class="s-card-list">
-            <div class="s-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg> Gebäudetechnik</div>
-            <div class="s-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg> Brandschutz</div>
-            <div class="s-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg> Energiemanagement</div>
+        <div class="proc-step">
+          <div class="proc-img-wrapper">
+            <div class="proc-img" style="background-image: url('https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?w=600&q=80')"></div>
           </div>
+          <div class="proc-num">03</div>
+          <div class="proc-line"></div>
+          <h3>Durchführung</h3>
+          <p>Fachgerechte Ausführung durch zertifiziertes Personal.</p>
         </div>
-        <div class="s-card reveal" style="transition-delay:0.1s;">
-          <svg class="s-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="16 3 21 3 21 8"></polyline>
-            <line x1="4" y1="20" x2="21" y2="3"></line>
-            <polyline points="21 16 21 21 16 21"></polyline>
-            <line x1="15" y1="15" x2="21" y2="21"></line>
-            <line x1="4" y1="4" x2="9" y2="9"></line>
-          </svg>
-          <h3>Demontage</h3>
-          <p>Fachgerechter Rückbau und Entsorgung von Industrieanlagen sowie Maschinenverlagerungen.</p>
-          <div class="s-card-list">
-            <div class="s-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg> Maschinenrückbau</div>
-            <div class="s-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg> Verlagerung</div>
-            <div class="s-list-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg> Entsorgung</div>
+        <div class="proc-step">
+          <div class="proc-img-wrapper">
+            <div class="proc-img" style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80')"></div>
           </div>
+          <div class="proc-num">04</div>
+          <div class="proc-line"></div>
+          <h3>Dokumentation</h3>
+          <p>Vollständige Übergabe aller Serviceprotokolle.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="s-process-section">
-    <div class="container">
-      <span class="section-label">DER ABLAUF</span>
-      <h2 class="t-h2">Präzision in 4 Schritten</h2>
+  <!-- ══ SECTION DIVIDER ══ -->
+  <div class="section-divider"></div>
 
-      <div class="process-grid">
-        <div class="process-item reveal">
-          <div class="p-num">01</div>
-          <h4 class="p-title">Audit</h4>
-          <p class="p-desc">Detaillierte Erfassung der Anlagenparameter und Definition der Service-Ziele.</p>
+  <!-- ══ SECTION 8: CTA BANNER ══ -->
+  <div class="cta-banner reveal">
+    <div class="container">
+      <div class="cta-grid">
+        <div class="cta-left">
+          <div class="section-label">Jetzt handeln</div>
+          <h2>Bereit für professionellen Industrieservice?</h2>
+          <p>Kontaktieren Sie uns noch heute für ein unverbindliches Angebot.</p>
         </div>
-        <div class="process-item reveal" style="transition-delay:0.1s;">
-          <div class="p-num">02</div>
-          <h4 class="p-title">Planung</h4>
-          <p class="p-desc">Erstellung eines maßgeschneiderten Zeit- und Kostenrahmens ohne Betriebsunterbrechung.</p>
+        <div class="cta-right">
+          <a href="#kontakt" class="btn-primary">Anfrage stellen</a>
+          <a href="tel:+49000000000" class="btn-outline-white">Anrufen</a>
         </div>
-        <div class="process-item reveal" style="transition-delay:0.2s;">
-          <div class="p-num">03</div>
-          <h4 class="p-title">Ausführung</h4>
-          <p class="p-desc">Fachgerechte Umsetzung durch unser spezialisiertes Techniker-Team.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION DIVIDER ══ -->
+  <div class="section-divider"></div>
+
+  <!-- ══ SECTION 9: CONTACT ══ -->
+  <section class="contact-section reveal" id="kontakt">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="section-label">Kontakt</div>
+          <h2>Jetzt Anfrage stellen.</h2>
+          <p>Kontaktieren Sie uns direkt &mdash; wir antworten innerhalb von 24 Stunden.</p>
+          <div class="c-details">
+            <div class="c-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span>+49 000 / 000000-0</span>
+            </div>
+            <div class="c-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <span>industrie@firma.de</span>
+            </div>
+            <div class="c-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>Stra&szlig;e, PLZ Stadt</span>
+            </div>
+          </div>
+          <p class="c-note">Anfragen werden direkt an unsere Industrieservice-Abteilung weitergeleitet.</p>
         </div>
-        <div class="process-item reveal" style="transition-delay:0.3s;">
-          <div class="p-num">04</div>
-          <h4 class="p-title">Protokoll</h4>
-          <p class="p-desc">Lückenlose Dokumentation aller Leistungen und Abnahme durch die Betriebsleitung.</p>
+
+        <div class="form-box">
+          <form id="contactForm" novalidate>
+            <div class="f-row">
+              <div class="f-group">
+                <label for="fn">Name *</label>
+                <input type="text" id="fn" placeholder="Vor- und Nachname" required>
+              </div>
+              <div class="f-group">
+                <label for="fe">E-Mail *</label>
+                <input type="email" id="fe" placeholder="name@firma.de" required>
+              </div>
+            </div>
+            <div class="f-row" style="margin-top:14px;">
+              <div class="f-group">
+                <label for="ff">Firma *</label>
+                <input type="text" id="ff" placeholder="Unternehmen" required>
+              </div>
+              <div class="f-group">
+                <label for="ft">Telefon</label>
+                <input type="tel" id="ft" placeholder="+49 ...">
+              </div>
+            </div>
+            <div class="f-row f-full" style="margin-top:14px;">
+              <div class="f-group">
+                <label for="fb">Betreff *</label>
+                <select id="fb" required>
+                  <option value="" disabled selected>Betreff wählen...</option>
+                  <option>Allgemeine Anfrage</option>
+                  <option>Wartungsanfrage</option>
+                  <option>Notfallservice</option>
+                  <option>Angebot anfordern</option>
+                </select>
+              </div>
+            </div>
+            <div class="f-row f-full" style="margin-top:14px;">
+              <div class="f-group">
+                <label for="fm">Nachricht *</label>
+                <textarea id="fm" placeholder="Ihre Nachricht..." required></textarea>
+              </div>
+            </div>
+            <button type="submit" class="btn-submit">Anfrage absenden</button>
+          </form>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="cta-section">
-    <div class="container">
-      <h2 class="t-h2" style="color:#fff;">Stillstand verhindern.</h2>
-      <p>Lassen Sie uns gemeinsam die Effizienz Ihrer Anlagen steigern.</p>
-      <div class="cta-actions">
-        <a href="index.html#contact" class="btn btn-black" style="background:#fff; color:#000;">Jetzt anfragen</a>
-        <a href="tel:+49000000000" class="btn btn-outline" style="border-color:#fff; color:#fff;">Experten sprechen</a>
-      </div>
-    </div>
-  </section>
-
-  <footer>
+  <!-- ══ FOOTER ══ -->
+  <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
-        <div class="f-brand">
-          <a href="index.html" class="f-logo">NEXGROUP</a>
-          <p class="f-desc">Präzision und Qualität in allen Divisionen. Ihr Partner für professionelle Dienstleistungen.
-          </p>
+        <div>
+          <a href="index.html" class="f-logo-brand">NEXGROUP</a>
+          <p class="f-brand-desc">Professioneller Industrieservice für höchste Ansprüche.</p>
+          <div class="f-contact-line">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            +49 000 / 000000-0
+          </div>
+          <div class="f-contact-line">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            industrie@firma.de
+          </div>
         </div>
         <div>
-          <h4 class="f-title">Navigation</h4>
+          <div class="f-col-label">Navigation</div>
           <ul class="f-links">
-            <li><a href="index.html#about">Über uns</a></li>
-            <li><a href="index.html#services">Services</a></li>
-            <li><a href="index.html#contact">Kontakt</a></li>
+            <li><a href="index.html">Startseite</a></li>
+            <li><a href="#leistungen">Leistungen</a></li>
+            <li><a href="#ueber-uns">Über uns</a></li>
+            <li><a href="#kontakt">Kontakt</a></li>
           </ul>
         </div>
         <div>
-          <h4 class="f-title">Services</h4>
-          <ul class="f-links">
-            <li><a href="autoaufbereitung.html">Autoaufbereitung</a></li>
-            <li><a href="industrieservice.html">Industrieservice</a></li>
-            <li><a href="index.html#contact">Objekträumung</a></li>
-            <li><a href="it-dienstleistungen.html">IT Dienstleistungen</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="f-title">Rechtliches</h4>
+          <div class="f-col-label">Rechtliches</div>
           <ul class="f-links">
             <li><a href="impressum.html">Impressum</a></li>
             <li><a href="datenschutz.html">Datenschutz</a></li>
-            <li><a href="datenschutz.html">AGB</a></li>
-            <li><a href="datenschutz.html">Cookies</a></li>
           </ul>
         </div>
       </div>
-      <div class="footer-bottom">
-        <p>© 2026 NexGroup. Alle Rechte vorbehalten.</p>
-      </div>
+      <div class="footer-divider"></div>
+      <p class="footer-copy">&copy; 2026 NexGroup. Alle Rechte vorbehalten.</p>
     </div>
   </footer>
 
   <script>
-    window.addEventListener('load', () => {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-          }
-        });
-      }, { threshold: 0.1 });
-      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    // LOADER
+    (function () {
+      if (!sessionStorage.getItem('nx_ind_loaded')) {
+        var loader = document.getElementById('loader');
+        setTimeout(function () {
+          loader.classList.add('fade-out');
+          setTimeout(function () { loader.style.display = 'none'; }, 400);
+          sessionStorage.setItem('nx_ind_loaded', '1');
+        }, 1500);
+      } else {
+        document.getElementById('loader').style.display = 'none';
+      }
+    })();
+
+    // MOBILE MENU
+    var menuBtn = document.getElementById('menuBtn');
+    var mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', function () {
+      mobileMenu.classList.toggle('open');
+    });
+    mobileMenu.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () { mobileMenu.classList.remove('open'); });
     });
 
-    document.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', (e) => {
-        const href = link.getAttribute('href');
-        if (href && href.endsWith('.html') && !href.startsWith('#')) {
-          e.preventDefault();
-          document.getElementById('pageTransition').classList.add('active');
-          setTimeout(() => {
-            window.location.href = href;
-          }, 400);
-        }
+    // SCROLL REVEAL
+    var revealObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) e.target.classList.add('active');
       });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(function (el) { revealObs.observe(el); });
+
+    // CONTACT FORM
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = document.getElementById('fn').value.trim();
+      var email = document.getElementById('fe').value.trim();
+      var firma = document.getElementById('ff').value.trim();
+      var betr  = document.getElementById('fb').value;
+      var msg   = document.getElementById('fm').value.trim();
+      if (!name || !email || !firma || !betr || !msg) {
+        alert('Bitte füllen Sie alle Pflichtfelder aus.');
+        return;
+      }
+      this.innerHTML =
+        '<div style="padding:48px 0;text-align:center;">' +
+        '<svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#E8621A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:0 auto 18px;">' +
+        '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>' +
+        '<p style="font-size:20px;font-weight:700;color:#1A1A1A;margin-bottom:10px;">Anfrage erfolgreich übermittelt.</p>' +
+        '<p style="font-size:15px;color:#4A4A4A;">Vielen Dank, <strong>' + name + '</strong>. Wir melden uns innerhalb von 24 Stunden bei Ihnen.</p>' +
+        '</div>';
     });
   </script>
 </body>
-
 </html>
